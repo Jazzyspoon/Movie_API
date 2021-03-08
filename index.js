@@ -2,10 +2,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 
-url = require("url");
-
 app.use(morgan("common"));
-app.use(express.static("public"));
 
 app.get("/movies", (req, res) => {
   res.json(topMovies);
@@ -15,8 +12,10 @@ app.get("/", (req, res) => {
   res.send("Welcome to my MovieFlix App");
 });
 
+app.use(express.static("public"));
+
 app.get("/documentation", (req, res) => {
-  res.sendFile(express.static("public/documentation.html", { root: _dirname }));
+  res.sendFile("public/documentation.html", { root: _dirname });
 });
 
 app.use((err, req, res, next) => {
