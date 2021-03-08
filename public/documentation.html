@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" >
   <head>
-    <title>documentation</title>  
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>documentation</title>
+    <link href="./css/reset.min.css" rel="stylesheet" type="text/css"/>
+    <link href="./css/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
-  <body>
-    
+  <body>  
   <div>
     <p>
       Exercise Objective: To build the server-side component of a “movies” web
@@ -15,5 +19,86 @@
       movies.
     </p>
     </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Request</th>
+          <th scope="col">URL</th>
+          <th scope="col">HTTP Method</th>
+          <th scope="col">Request Body Data format</th>
+          <th scope="col">Response Body Data Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Return a list of ALL movies to the user</th>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>none/200</td>
+          <td>A Json object holding data about all of the movies</td>
+          
+        </tr>
+        <tr>
+          <th scope="row">Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</th>
+          <td>/movies[name]</td>
+          <td>GET</td>
+          <td>none/200</td>
+          <td>A json object holding data about a single movie, containing the descritpion, genre, director, img, and whether it's featured <br><h6 class='text-primary'>{ name: 'moviename', description: 'movie descriptor', genre: {genre 1: 'genre1', genre 2: 'genre2'}, director: 'director name', imgURL: 'img.url', currently-featured: 'yes/no'}</h6> </td>
+        </tr>
+        <tr>
+          <th scope="row">Return data about a genre (description) by name/title (e.g., “Thriller”)</th>
+          <td >/movies[name]/genre</td>
+          <td>GET</td>
+          <td>none/200</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">Return data about a director (bio, birth year, death year) by name</th>
+          <td >Larry the Bird</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">Allow new users to register</th>
+          <td >Larry the Bird</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">Allow users to update their user info (username)</th>
+          <td >Larry the Bird</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
+          <td >Larry the Bird</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
+          <td >Larry the Bird</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+        <tr>
+          <th scope="row">Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</th>
+          <td >Larry the Bird</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+          <td>@twitter</td>
+        </tr>
+        
+      </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
   </body>
 </html>
