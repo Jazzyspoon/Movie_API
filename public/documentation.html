@@ -43,56 +43,56 @@
           <td>/movies[name]</td>
           <td>GET</td>
           <td>none/200</td>
-          <td>A json object holding data about a single movie, containing the descritpion, genre, director, img, and whether it's featured <br><h6 class='text-primary'>{ name: 'moviename', description: 'movie descriptor', genre: {genre 1: 'genre1', genre 2: 'genre2'}, director: 'director name', imgURL: 'img.url', currently-featured: 'yes/no'}</h6> </td>
+          <td>A json object holding data about a single movie, containing the descritpion, genre, director, img, and whether it's featured <br><h6 class='text-primary'>{ name: 'moviename', description: 'movie descriptor', genre: {genre 1: 'genre1', genre 2: 'genre2'}, director: {name:'director name', bio: 'director bio', birth-year: 'birthyear', death-year: 'deathyear'}, imgURL: 'img.url', currently-featured: 'yes/no'}</h6> </td>
         </tr>
         <tr>
           <th scope="row">Return data about a genre (description) by name/title (e.g., “Thriller”)</th>
           <td >/movies[name]/genre</td>
           <td>GET</td>
           <td>none/200</td>
-          <td></td>
+          <td>A json object holding data about a single movie, containing the genre(s) <br> <h6 class='text-primary'> { name: 'moviename', genre: {genre 1: 'genre1', genre 2: 'genre2'}}</h6></td>
         </tr>
         <tr>
           <th scope="row">Return data about a director (bio, birth year, death year) by name</th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <td >/movies/:director</td>
+          <td>GET</td>
+          <td>None/200</td>
+          <td>A json object holding data about the director, including bio, birthyear, deathyear.<br><h6 class='text-primary'>director: {name:'director name', bio: 'director bio', birth-year: 'birthyear', death-year: 'deathyear'}</h6></td>
         </tr>
         <tr>
           <th scope="row">Allow new users to register</th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <td>users/[username]/[email]</td>
+          <td>POST</td>
+          <td>A JSON object holding data about the user to add:<br><h6 class="text-primary">input: {name: "username", email: 'useremail'}</h6></td>
+          <td>A text message indicating whether user was registered successfully <br> <h6 class="text-primary">"registration successful!"</h6></td>
         </tr>
         <tr>
           <th scope="row">Allow users to update their user info (username)</th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <td>/users/[username]/[email]</td>
+          <td>PUT</td>
+          <td>A JSON object holding data about the user to add:<br><h6 class="text-primary">input: {name: "username", email: "email"}</h6></td></td>
+          <td>a text indicating that a parameter was updated. <br><h6 class="text-primary">"Update successful!"</h6> </td>
         </tr>
         <tr>
           <th scope="row">Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <td >/users/[favorite]</td>
+          <td>POST</td>
+          <td>none</td>
+          <td>a text message indicating that the movie selection has been added to their favorites.</td>
         </tr>
         <tr>
-          <th scope="row">Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <th scope="row">Allow users to remove a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
+          <td >/users/[favorite]</td>
+          <td>DELETE</td>
+          <td>none</td>
+          <td>a text message indicating that the movie selection has been added to their favorites.</td>
         </tr>
         <tr>
           <th scope="row">Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</th>
-          <td >Larry the Bird</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
-          <td>@twitter</td>
+          <td >/users/[username]/[email]</td>
+          <td>DELETE</td>
+          <td>none</td>
+          <td>A text message indicating that the user name and email have been removed from the database</td>
         </tr>
         
       </tbody>
