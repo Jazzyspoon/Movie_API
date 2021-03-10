@@ -6,7 +6,6 @@ const morgan = require("morgan");
 //use morgan to log common info
 app.use(morgan("common"));
 
-
 //load a generic message
 app.get("/", (req, res) => {
   res.send("Welcome to my MovieFlix App");
@@ -26,7 +25,7 @@ app.get("/topMovies/:title", (req, res) => {
   );
 });
 
-//3. Return data about a genre (description) by name/title
+//3. Return data about a genre (description) by title
 app.get("/topMovies/:title/:genre", (req, res) => {
   res.json(
     topMovies.find((movie) => {
@@ -128,6 +127,30 @@ app.listen(8080, () => {
   console.log("Your app is listening on port 8080");
 });
 
+let topDirectors = [
+  {
+    name: "Ridley Scott",
+    bio:
+      "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
+    birthyear: 1937,
+    deathyear: "alive",
+  },
+  {
+    name: "David Twohy",
+    bio:
+      "As both writer and director, David Twohy has contributed much to the film world, helping to elevate movies in such a way that Entertainment Weekly was prompted to name him 'one of the 100 most creative people in Hollywood.'",
+    birthyear: 1955,
+    deathyear: "alive",
+  },
+  {
+    name: "Joss Whedon",
+    bio:
+      "Joss Whedon is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+    birthyear: 1964,
+    deathyear: "alive",
+  }
+];
+
 //movielist
 let topMovies = [
   {
@@ -217,7 +240,7 @@ let topMovies = [
       "Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his motives.",
     imgURL:
       "https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjczMi00OTk4LTg3NWUtNmVhMTAzNTNjYjcyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg",
-  },
+  }
 ];
 
 let userNames = [
@@ -227,29 +250,7 @@ let userNames = [
     favoriteMovie: " ",
   },
   { name: "SteveDyson", email: "SD@gmail.com", favoriteMovie: " " },
-  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " },
+  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " }
 ];
 
-let topDirectors = [
-  {
-    name: "Ridley Scott",
-    bio:
-      "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
-    birthyear: 1937,
-    deathyear: "alive",
-  },
-  {
-    name: "David Twohy",
-    bio:
-      "As both writer and director, David Twohy has contributed much to the film world, helping to elevate movies in such a way that Entertainment Weekly was prompted to name him 'one of the 100 most creative people in Hollywood.'",
-    birthyear: 1955,
-    deathyear: "alive",
-  },
-  {
-    name: "Joss Whedon",
-    bio:
-      "Joss Whedon is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
-    birthyear: 1964,
-    deathyear: "alive",
-  },
-];
+
