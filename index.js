@@ -26,9 +26,9 @@ app.get("/topMovies/:title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by title
-app.get("/topMovies/:genreDescription", (req, res) => {
+app.get("/topMovies/:genre/:genredescritpion", (req, res) => {
   res.json(topMovies.find((genre) => {
-      return genre.genreDescription === req.params.genreDescription;
+      return genre.genredescription === req.params.genredescription;
     })
   );
 });
