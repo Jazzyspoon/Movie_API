@@ -40,56 +40,56 @@
         </tr>
         <tr>
           <th scope="row">Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</th>
-          <td>/movies[name]</td>
+          <td>/movies/:name</td>
           <td>GET</td>
           <td>none/200</td>
           <td>A json object holding data about a single movie, containing the descritpion, genre, director, img, and whether it's featured <br><h6 class='text-primary'>{ name: 'moviename', description: 'movie descriptor', genre: {genre 1: 'genre1', genre 2: 'genre2'}, director: {name:'director name', bio: 'director bio', birth-year: 'birthyear', death-year: 'deathyear'}, imgURL: 'img.url', currently-featured: 'yes/no'}</h6> </td>
         </tr>
         <tr>
           <th scope="row">Return data about a genre (description) by name/title (e.g., “Thriller”)</th>
-          <td >/movies[name]/genre</td>
+          <td >/movies/:name/:genre</td>
           <td>GET</td>
           <td>none/200</td>
           <td>A json object holding data about a single movie, containing the genre(s) <br> <h6 class='text-primary'> { name: 'moviename', genre: {genre 1: 'genre1', genre 2: 'genre2'}}</h6></td>
         </tr>
         <tr>
           <th scope="row">Return data about a director (bio, birth year, death year) by name</th>
-          <td >/movies/[director]</td>
+          <td >/directors</td>
           <td>GET</td>
           <td>None/200</td>
           <td>A json object holding data about the director, including bio, birthyear, deathyear.<br><h6 class='text-primary'>director: {name:'director name', bio: 'director bio', birth-year: 'birthyear', death-year: 'deathyear'}</h6></td>
         </tr>
         <tr>
           <th scope="row">Allow new users to register</th>
-          <td>/users/[username]/[email]</td>
+          <td>/users/:name/:email</td>
           <td>POST</td>
           <td>A JSON object holding data about the user to add:<br><h6 class="text-primary">input: {name: "username", email: 'useremail'}</h6></td>
           <td>A text message indicating whether user was registered successfully <br> <h6 class="text-primary">"Registration successful.  Welcome!"</h6></td>
         </tr>
         <tr>
           <th scope="row">Allow users to update their user info (username)</th>
-          <td>/users/[username]/[email]</td>
+          <td>/users/:name</td>
           <td>PUT</td>
           <td>A JSON object holding data about the user to add:<br><h6 class="text-primary">input: {name: "username", email: "email"}</h6></td></td>
           <td>A text indicating that a parameter was updated.<br><h6 class="text-primary">"Your information has been updated."</h6>  </td>
         </tr>
         <tr>
           <th scope="row">Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
-          <td >/users/[favorite]</td>
+          <td >/users/:favoriteMovie</td>
           <td>POST</td>
           <td>none</td>
           <td>a text message indicating that the movie selection has been added to their favorites.<br><h6 class="text-primary">"Movie added to favorites."</h6></td>
         </tr>
         <tr>
           <th scope="row">Allow users to remove a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
-          <td >/users/[favorite]</td>
+          <td >/users/:favoriteMovie</td>
           <td>DELETE</td>
           <td>none</td>
           <td>a text message indicating that the movie selection has been added to their favorites<br><h6 class="text-primary">"Movie removed from favorites."</h6>.</td>
         </tr>
         <tr>
           <th scope="row">Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</th>
-          <td >/users/[username]/[email]</td>
+          <td >/users</td>
           <td>DELETE</td>
           <td>none</td>
           <td>A text message indicating that the user name and email have been removed from the database <br><h6 class="text-primary">"User deleted"</h6></td>
