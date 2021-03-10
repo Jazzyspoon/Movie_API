@@ -26,10 +26,10 @@ app.get("/topMovies/:title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by title
-app.get("/topMovies//:genreDescription", (req, res) => {
+app.get("/topMovies/:genreDescription", (req, res) => {
   res.json(
-    topMovies.find((genre) => {
-      return genre.genreDescription === req.params.genreDescription;
+    topMovies.genre.find((genres) => {
+      return genres.genreDescription === req.params.genreDescription;
     })
   );
 });
@@ -37,8 +37,8 @@ app.get("/topMovies//:genreDescription", (req, res) => {
 //4. Return data about a director (bio, birth year, death year) by name
 app.get("/topMovies/:director/:name", (req, res) => {
   res.json(
-    topMovies.find((name) => {
-      return name.director === req.params.director;
+    topMovies.director.find((directorinfo) => {
+      return directorinfo.director === req.params.director;
     })
   );
 });
