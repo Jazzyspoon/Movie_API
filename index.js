@@ -26,19 +26,19 @@ app.get("/topMovies/:title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by title
-app.get("/topMovies/:title/:genre", (req, res) => {
-  res.json(
-    topMovies.find((movie) => {
-      return movie.genre === req.params.title;
+app.get("/topMovies//:genreDescription", (req, res) => {
+   res.json(
+    topMovies.find((genre) => {
+      return genre.genreDescription === req.params.genreDescription;
     })
   );
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/topDirectors", (req, res) => {
+app.get("/topMovies/:director/:name", (req, res) => {
   res.json(
-    topDirectors.find((director) => {
-      return director.name === req.params.name;
+    topMovies.find((name) => {
+      return name.director === req.params.director;
     })
   );
 });
@@ -71,11 +71,7 @@ app.put("/userNames/:name", (req, res) => {
   });
   if (user) {
     user.name[req.params.name] = parse(req.params.newname);
-    res
-      .status(201)
-      .send(
-        "Your information has been updated."
-          );
+    res.status(201).send("Your information has been updated.");
   } else {
     res
       .status(404)
@@ -90,22 +86,18 @@ app.put("/userNames/:favoriteMovie", (req, res) => {
   });
   if (user) {
     user.favoriteMovie[req.params.name] = parse(req.params.favoriteMovie);
-    res
-      .status(201)
-      .send(
-        "Movie added to favorites."
-      );
-  } 
+    res.status(201).send("Movie added to favorites.");
+  }
 });
 
 //8. Allow users to remove a movie from their list of favorites
-app.delete('/userNames/:favoriteMovie', (req, res) => {
-  res.status(201).send('The movie was deleted from your favorites.');
+app.delete("/userNames/:favoriteMovie", (req, res) => {
+  res.status(201).send("The movie was deleted from your favorites.");
 });
 
 //9. Allow existing users to deregister
-app.delete('/userNames', (req, res) => {
-  res.status(201).send('User Deleted.');
+app.delete("/userNames", (req, res) => {
+  res.status(201).send("User Deleted.");
 });
 
 //summon express static on public
@@ -127,36 +119,20 @@ app.listen(8080, () => {
   console.log("Your app is listening on port 8080");
 });
 
-let topDirectors = [
-  {
-    name: "Ridley Scott",
-    bio:
-      "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
-    birthyear: 1937,
-    deathyear: "alive",
-  },
-  {
-    name: "David Twohy",
-    bio:
-      "As both writer and director, David Twohy has contributed much to the film world, helping to elevate movies in such a way that Entertainment Weekly was prompted to name him 'one of the 100 most creative people in Hollywood.'",
-    birthyear: 1955,
-    deathyear: "alive",
-  },
-  {
-    name: "Joss Whedon",
-    bio:
-      "Joss Whedon is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
-    birthyear: 1964,
-    deathyear: "alive",
-  }
-];
+
 
 //movielist
 let topMovies = [
   {
     title: "Bladerunner",
-    genre: "sci-fi",
-    director: "Ridley Scott",
+    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    director: {
+      name: "Ridley Scott",
+      bio:
+        "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
+      birthyear: 1937,
+      deathyear: "alive",
+    },
     description:
       "A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.",
     imgURL:
@@ -164,8 +140,14 @@ let topMovies = [
   },
   {
     title: "Alien",
-    genre: "sci-fi",
-    director: "Ridley Scott",
+    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    director: {
+      name: "Ridley Scott",
+      bio:
+        "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
+      birthyear: 1937,
+      deathyear: "alive",
+    },
     description:
       "After a space merchant vessel receives an unknown transmission as a distress call, one of the crew is attacked by a mysterious life form and they soon realize that its life cycle has merely begun.",
     imgURL:
@@ -173,8 +155,14 @@ let topMovies = [
   },
   {
     title: "The Chronicles Of Riddick",
-    genre: "sci-fi",
-    director: "David Twohy",
+    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    director: {
+      name: "David Twohy",
+      bio:
+        "As both writer and director, David Twohy has contributed much to the film world, helping to elevate movies in such a way that Entertainment Weekly was prompted to name him 'one of the 100 most creative people in Hollywood.'",
+      birthyear: 1955,
+      deathyear: "alive",
+    },
     description:
       "The wanted criminal Richard Bruno Riddick (Vin Diesel) arrives on a planet called Helion Prime and finds himself up against an invading empire called the Necromongers, an army that plans to convert or kill all humans in the universe.",
     imgURL:
@@ -182,8 +170,14 @@ let topMovies = [
   },
   {
     title: "The Avengers",
-    genre: "action",
-    director: "Joss Whedon",
+    genre: { type: "action", genredescription: "an energetic, viceral film" },
+    director: {
+      name: "Joss Whedon",
+      bio:
+        "Joss Whedon is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
     imgURL:
@@ -191,14 +185,14 @@ let topMovies = [
   },
   {
     title: "Phantasm",
-    genre: "horror",
+    genre: { type: "horror", genredescription: "a scary or disturbing movie" },
     director: "Don Coscarelli",
     description:
       "A teenage boy and his friends face off against a mysterious grave robber known only as the Tall Man, who keeps a lethal arsenal of terrible weapons with him.",
   },
   {
     title: "Steel Magnolias",
-    genre: "drama",
+    genre: { type: "drama", genredescription: "an emotional movie" },
     director: "Herbert Ross",
     description:
       "A young beautician, newly arrived in a small Louisiana town, finds work at the local salon, where a small group of women share a close bond of friendship, and welcome her into the fold.",
@@ -207,7 +201,7 @@ let topMovies = [
   },
   {
     title: "The Matrix",
-    genre: "sci-fi",
+    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
     director: "The Wachowski Brothers",
     description:
       "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
@@ -216,7 +210,7 @@ let topMovies = [
   },
   {
     title: "2012",
-    genre: "action",
+    genre: { type: "action", genredescription: "an energetic, viceral film" },
     director: " Roland Emmerich",
     description:
       "A frustrated writer struggles to keep his family alive when a series of global catastrophes threatens to annihilate mankind.",
@@ -225,7 +219,10 @@ let topMovies = [
   },
   {
     title: "Unforgiven",
-    genre: "western",
+    genre: {
+      type: "western",
+      genredescription: "a film set in the pioneer days of American history",
+    },
     director: "Clint Eastwood",
     description:
       "Retired Old West gunslinger William Munny reluctantly takes on one last job, with the help of his old partner Ned Logan and a young man, The 'Schofield Kid.'",
@@ -234,15 +231,19 @@ let topMovies = [
   },
   {
     title: "Se7en",
-    genre: "mystery",
+    genre: {
+      genre: "mystery",
+      genredescription: "a suspenseful film full of twists and surprises",
+    },
     director: "David Fincher",
     description:
       "Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his motives.",
     imgURL:
       "https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjczMi00OTk4LTg3NWUtNmVhMTAzNTNjYjcyXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg",
-  }
+  },
 ];
 
+//userlist
 let userNames = [
   {
     name: "JohnDare",
@@ -250,7 +251,5 @@ let userNames = [
     favoriteMovie: " ",
   },
   { name: "SteveDyson", email: "SD@gmail.com", favoriteMovie: " " },
-  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " }
+  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " },
 ];
-
-
