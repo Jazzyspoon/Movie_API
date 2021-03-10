@@ -27,7 +27,7 @@ app.get("/topMovies/:title", (req, res) => {
 
 //3. Return data about a genre (description) by title
 app.get("/topMovies//:genreDescription", (req, res) => {
-   res.json(
+  res.json(
     topMovies.find((genre) => {
       return genre.genreDescription === req.params.genreDescription;
     })
@@ -119,13 +119,14 @@ app.listen(8080, () => {
   console.log("Your app is listening on port 8080");
 });
 
-
-
 //movielist
 let topMovies = [
   {
     title: "Bladerunner",
-    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    genre: {
+      type: "sci-fi",
+      genredescription: "a film with a futuristic theme",
+    },
     director: {
       name: "Ridley Scott",
       bio:
@@ -140,7 +141,10 @@ let topMovies = [
   },
   {
     title: "Alien",
-    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    genre: {
+      type: "sci-fi",
+      genredescription: "a film with a futuristic theme",
+    },
     director: {
       name: "Ridley Scott",
       bio:
@@ -155,7 +159,10 @@ let topMovies = [
   },
   {
     title: "The Chronicles Of Riddick",
-    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    genre: {
+      type: "sci-fi",
+      genredescription: "a film with a futuristic theme",
+    },
     director: {
       name: "David Twohy",
       bio:
@@ -201,7 +208,10 @@ let topMovies = [
   },
   {
     title: "The Matrix",
-    genre: { type: "sci-fi", genredescription: "a film with a futuristic theme" },
+    genre: {
+      type: "sci-fi",
+      genredescription: "a film with a futuristic theme",
+    },
     director: "The Wachowski Brothers",
     description:
       "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
