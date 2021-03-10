@@ -6,36 +6,37 @@ const morgan = require("morgan");
 //use morgan to log common info
 app.use(morgan("common"));
 
-// 1.get all movies
-app.get("/movies", (req, res) => {
-  res.json(topMovies);
-});
 
 //load a generic message
 app.get("/", (req, res) => {
   res.send("Welcome to my MovieFlix App");
 });
 
+// 1.get all movies
+app.get("/topMovies", (req, res) => {
+  res.json(topMovies);
+});
+
 //2. get a single movie's full details
-app.get("/movies/:name", (req, res) => {
+app.get("/topMovies/:title", (req, res) => {
   res.json(
     topMovies.find((movie) => {
-      return movie.name === req.params.name;
+      return movie.title === req.params.title;
     })
   );
 });
 
 //3. Return data about a genre (description) by name/title
-app.get("/movies/:name/:genre", (req, res) => {
+app.get("/topMovies/:title/:genre", (req, res) => {
   res.json(
     topMovies.find((movie) => {
-      return movie.genre === req.params.name;
+      return movie.genre === req.params.title;
     })
   );
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/directors", (req, res) => {
+app.get("/topDirectors", (req, res) => {
   res.json(
     topDirectors.find((director) => {
       return director.name === req.params.name;
@@ -44,7 +45,7 @@ app.get("/directors", (req, res) => {
 });
 
 //5.Allow new users to register
-app.post("/users", (req, res) => {
+app.post("/userNames", (req, res) => {
   let userNames = req.body;
   if (!userNames.name) {
     const message = "Missing name";
@@ -52,7 +53,7 @@ app.post("/users", (req, res) => {
   } else {
     userNames.id = uuid.v4();
     users.push(userNames);
-    res.status(201).send(userNames);
+    res.status(201).send("Registration successful. Welcome!");
   }
   if (!userNames.email) {
     const message = "Missing email";
@@ -60,12 +61,12 @@ app.post("/users", (req, res) => {
   } else {
     userNames.id = uuid.v4();
     users.push(userNames);
-    res.status(201).send(userNames);
+    res.status(201).send("Registration successful. Welcome!");
   }
 });
 
 //6.Allow users to update their user info (username)
-app.put("/users/:name", (req, res) => {
+app.put("/userNames/:name", (req, res) => {
   let user = userNames.find((user) => {
     return user.name === req.params.name;
   });
@@ -74,13 +75,8 @@ app.put("/users/:name", (req, res) => {
     res
       .status(201)
       .send(
-        "Username " +
-          req.params.name +
-          " was assigned the new name of " +
-          req.params.newname +
-          " in " +
-          req.params.class
-      );
+        "Your information has been updated."
+          );
   } else {
     res
       .status(404)
@@ -89,7 +85,7 @@ app.put("/users/:name", (req, res) => {
 });
 
 //7. Allow users to add a movie to their list of favorites
-app.put("/users/:favoriteMovie", (req, res) => {
+app.put("/userNames/:favoriteMovie", (req, res) => {
   let user = userNames.find((user) => {
     return user.name === req.params.favoritemovie;
   });
@@ -98,35 +94,20 @@ app.put("/users/:favoriteMovie", (req, res) => {
     res
       .status(201)
       .send(
-        "The movie " + req.params.favoritemovie + " was added to your favorites"
+        "Movie added to favorites."
       );
-  } else {
-    res
-      .status(404)
-      .send("The movie " + req.params.favoriteMovie + " was not found.");
-  }
+  } 
 });
 
 //8. Allow users to remove a movie from their list of favorites
-app.delete("/users/:favoriteMovie", (req, res) => {
-  let user = userNames.find((user) => {
-    return user.name === req.params.favoritemovie;
-  });
-  if (user) {
-    favoriteMovie = favoriteMovie.filter((obj) => {
-      return obj.user !== req.params.favoriteMovie;
-    });
-    res
-      .status(201)
-      .send("The movie " + req.params.favoriteMovie + " was deleted.");
-  }
+app.delete('/userNames/:favoriteMovie', (req, res) => {
+  res.status(201).send('The movie was deleted from your favorites.');
 });
 
 //9. Allow existing users to deregister
-
-
-
-
+app.delete('/userNames', (req, res) => {
+  res.status(201).send('User Deleted.');
+});
 
 //summon express static on public
 app.use(express.static("public"));
@@ -146,6 +127,7 @@ app.use((err, req, res, next) => {
 app.listen(8080, () => {
   console.log("Your app is listening on port 8080");
 });
+
 //movielist
 let topMovies = [
   {
@@ -240,12 +222,12 @@ let topMovies = [
 
 let userNames = [
   {
-    name: "John Dare",
-    email: "JDare@gmail.com",
-    favoriteMovies: "The Avengers",
+    name: "JohnDare",
+    email: "JD@gmail.com",
+    favoriteMovie: " ",
   },
-  { name: "Steve Dyson", email: "SD@gmail.com", favoriteMovie: "Unforgiven" },
-  { name: "Jane Amp", email: "JA@gmail.com", favoriteMovie: "The Matrix" },
+  { name: "SteveDyson", email: "SD@gmail.com", favoriteMovie: " " },
+  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " },
 ];
 
 let topDirectors = [
