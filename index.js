@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 // 1.get all movies
 app.get("/topMovies", (req, res) => {
   res.json(topMovies);
-  res.send("All of the movies in the database");
+  
 });
 
 //2. get a single movie's full details
@@ -23,83 +23,52 @@ app.get("/topMovies/:title", (req, res) => {
     topMovies.find((movie) => {
       return movie.title === req.params.title;
      }));
-     res.send("The movie info you requested");
-});
+   });
 
 //3. Return data about a genre (description) by title
 app.get("/topMovies/:genre/:type", (req, res) => {
-  res.json(
-    topMovies
-      .filter((movie) => movie.genre.type === req.params.type)
-      .map((movieList) => movieList.genre.description)[0]
-  );
-  res.send("The genre info you requested");
+  res.status(201).send("The genre info you requested");
+  
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
 app.get("/topMovies/:director/:name", (req, res) => {
-  res.json(
-    topMovies
-      .filter((movie) => movie.director.name === req.params.name)
-      .map((movieList) => movieList.director.name)[0]
-  );
-  res.send("The genre info you requested");
+  res.status(201).send("The director info you requested");
+  
+});
+
+//demo userlist and return for sanity's sake
+let userNames = [
+  { name: "JohnDare", email: "JD@gmail.com", favoriteMovie: " " },
+  { name: "SteveDyson", email: "SD@gmail.com", favoriteMovie: " " },
+  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " }
+];
+app.get("/userNames", (req, res) => {
+  res.json(userNames);
 });
 
 //5.Allow new users to register
-app.post("/userNames", (req, res) => {
-  let userNames = req.body;
-  if (!userNames.name) {
-    const message = "Missing name";
-    res.status(400).send(message);
-  } else {
-    userNames.id = uuid.v4();
-    users.push(userNames);
-    res.status(201).send("Registration successful. Welcome!");
-  }
-  if (!userNames.email) {
-    const message = "Missing email";
-    res.status(400).send(message);
-  } else {
-    userNames.id = uuid.v4();
-    users.push(userNames);
-    res.status(201).send("Registration successful. Welcome!");
-  }
-});
+app.post("/userNames/:name", (req, res) => {
+     res.status(201).send("Registration successful. Welcome!");
+  });
 
 //6.Allow users to update their user info (username)
 app.put("/userNames/:name", (req, res) => {
-  let user = userNames.find((user) => {
-    return user.name === req.params.name;
+  res.status(201).send("Username updated.");
   });
-  if (user) {
-    user.name[req.params.name] = parse(req.params.newname);
-    res.status(201).send("Your information has been updated.");
-  } else {
-    res
-      .status(404)
-      .send("User with the name " + req.params.name + " was not found.");
-  }
-});
 
 //7. Allow users to add a movie to their list of favorites
-app.put("/userNames/:favoriteMovie", (req, res) => {
-  let user = userNames.find((user) => {
-    return user.name === req.params.favoritemovie;
-  });
-  if (user) {
-    user.favoriteMovie[req.params.name] = parse(req.params.favoriteMovie);
+app.put("/userNames/:name/:favoriteMovie", (req, res) => {
     res.status(201).send("Movie added to favorites.");
-  }
-});
+  });
 
 //8. Allow users to remove a movie from their list of favorites
-app.delete("/userNames/:favoriteMovie", (req, res) => {
+app.delete("/userNames/:name/:favoriteMovie", (req, res) => {
   res.status(201).send("The movie was deleted from your favorites.");
 });
 
 //9. Allow existing users to deregister
-app.delete("/userNames", (req, res) => {
+app.delete("/userNames/:name", (req, res) => {
   res.status(201).send("User Deleted.");
 });
 
@@ -131,7 +100,7 @@ let topMovies = [
       description: "a film with a futuristic theme",
     },
     director: {
-      name: "Ridley Scott",
+      name: "Ridley_Scott",
       bio:
         "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
       birthyear: 1937,
@@ -149,7 +118,7 @@ let topMovies = [
       description: "a film with a futuristic theme",
     },
     director: {
-      name: "Ridley Scott",
+      name: "Ridley_Scott",
       bio:
         "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
       birthyear: 1937,
@@ -292,13 +261,4 @@ let topMovies = [
   },
 ];
 
-//userlist
-let userNames = [
-  {
-    name: "JohnDare",
-    email: "JD@gmail.com",
-    favoriteMovie: " ",
-  },
-  { name: "SteveDyson", email: "SD@gmail.com", favoriteMovie: " " },
-  { name: "JaneAmp", email: "JA@gmail.com", favoriteMovie: " " },
-];
+
