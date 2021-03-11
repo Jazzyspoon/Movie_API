@@ -26,9 +26,9 @@ app.get("/topMovies/:title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by title
-app.get("/topMovies/:genre/:genredescritpion", (req, res) => {
-  res.json(topMovies.find((genre) => {
-      return genre.genredescription === req.params.genredescription;
+app.get("/topMovies/:genre", (req, res) => {
+  res.json(topMovies.genre.find((genredesc) => {
+      return genredesc.description === req.params.description;
     })
   );
 });
@@ -124,7 +124,7 @@ let topMovies = [
     title: "Bladerunner",
     genre: {
       type: "sci-fi",
-      genredescription: "a film with a futuristic theme",
+      description: "a film with a futuristic theme",
     },
     director: {
       name: "Ridley Scott",
@@ -142,7 +142,7 @@ let topMovies = [
     title: "Alien",
     genre: {
       type: "sci-fi",
-      genredescription: "a film with a futuristic theme",
+      description: "a film with a futuristic theme",
     },
     director: {
       name: "Ridley Scott",
@@ -160,7 +160,7 @@ let topMovies = [
     title: "The Chronicles Of Riddick",
     genre: {
       type: "sci-fi",
-      genredescription: "a film with a futuristic theme",
+      description: "a film with a futuristic theme",
     },
     director: {
       name: "David Twohy",
@@ -176,7 +176,7 @@ let topMovies = [
   },
   {
     title: "The Avengers",
-    genre: { type: "action", genredescription: "an energetic, viceral film" },
+    genre: { type: "action", description: "an energetic, viceral film" },
     director: {
       name: "Joss Whedon",
       bio:
@@ -191,14 +191,14 @@ let topMovies = [
   },
   {
     title: "Phantasm",
-    genre: { type: "horror", genredescription: "a scary or disturbing movie" },
+    genre: { type: "horror", description: "a scary or disturbing movie" },
     director: "Don Coscarelli",
     description:
       "A teenage boy and his friends face off against a mysterious grave robber known only as the Tall Man, who keeps a lethal arsenal of terrible weapons with him.",
   },
   {
     title: "Steel Magnolias",
-    genre: { type: "drama", genredescription: "an emotional movie" },
+    genre: { type: "drama", description: "an emotional movie" },
     director: "Herbert Ross",
     description:
       "A young beautician, newly arrived in a small Louisiana town, finds work at the local salon, where a small group of women share a close bond of friendship, and welcome her into the fold.",
@@ -209,7 +209,7 @@ let topMovies = [
     title: "The Matrix",
     genre: {
       type: "sci-fi",
-      genredescription: "a film with a futuristic theme",
+      description: "a film with a futuristic theme",
     },
     director: "The Wachowski Brothers",
     description:
@@ -219,7 +219,7 @@ let topMovies = [
   },
   {
     title: "2012",
-    genre: { type: "action", genredescription: "an energetic, viceral film" },
+    genre: { type: "action", description: "an energetic, viceral film" },
     director: " Roland Emmerich",
     description:
       "A frustrated writer struggles to keep his family alive when a series of global catastrophes threatens to annihilate mankind.",
@@ -230,7 +230,7 @@ let topMovies = [
     title: "Unforgiven",
     genre: {
       type: "western",
-      genredescription: "a film set in the pioneer days of American history",
+      description: "a film set in the pioneer days of American history",
     },
     director: "Clint Eastwood",
     description:
@@ -242,7 +242,7 @@ let topMovies = [
     title: "Se7en",
     genre: {
       genre: "mystery",
-      genredescription: "a suspenseful film full of twists and surprises",
+      description: "a suspenseful film full of twists and surprises",
     },
     director: "David Fincher",
     description:
