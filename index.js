@@ -26,15 +26,15 @@ app.get("/topMovies/:title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by title
-app.get("/topMovies/:genre", (req, res) => {
-  res.json(topMovies.genre.find((genredesc) => {
-      return genredesc.description === req.params.description;
+app.get("/topMovies/:genre/:type", (req, res) => {
+  res.json(topMovies.genre.find((description) => {
+      return description === req.params.description;
     })
   );
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/topMovies/:director/:name", (req, res) => {
+app.get("/topMovies/:director", (req, res) => {
   res.json(
     topMovies.director.find((directorinfo) => {
       return directorinfo.director === req.params.director;
@@ -192,14 +192,26 @@ let topMovies = [
   {
     title: "Phantasm",
     genre: { type: "horror", description: "a scary or disturbing movie" },
-    director: "Don Coscarelli",
+    director: {
+      name: "Don Coscarelli",
+      bio:
+        "Don Coscarelli is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "A teenage boy and his friends face off against a mysterious grave robber known only as the Tall Man, who keeps a lethal arsenal of terrible weapons with him.",
   },
   {
     title: "Steel Magnolias",
     genre: { type: "drama", description: "an emotional movie" },
-    director: "Herbert Ross",
+    director: {
+      name: "Herbert Ross",
+      bio:
+        "Herbert Ross is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "A young beautician, newly arrived in a small Louisiana town, finds work at the local salon, where a small group of women share a close bond of friendship, and welcome her into the fold.",
     imgURL:
@@ -211,7 +223,13 @@ let topMovies = [
       type: "sci-fi",
       description: "a film with a futuristic theme",
     },
-    director: "The Wachowski Brothers",
+    director: {
+      name: "The Wachowski Brothers",
+      bio:
+        "The Wachowski Brothers, the middle of five brothers, were successful television writers.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
     imgURL:
@@ -220,7 +238,13 @@ let topMovies = [
   {
     title: "2012",
     genre: { type: "action", description: "an energetic, viceral film" },
-    director: " Roland Emmerich",
+    director: {
+      name: " Roland Emmerich",
+      bio:
+        "Roland Emmirich is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "A frustrated writer struggles to keep his family alive when a series of global catastrophes threatens to annihilate mankind.",
     imgURL:
@@ -232,7 +256,13 @@ let topMovies = [
       type: "western",
       description: "a film set in the pioneer days of American history",
     },
-    director: "Clint Eastwood",
+    director: {
+      name: "Clint Eastwood",
+      bio:
+        "Clint Eastwood is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "Retired Old West gunslinger William Munny reluctantly takes on one last job, with the help of his old partner Ned Logan and a young man, The 'Schofield Kid.'",
     imgURL:
@@ -241,10 +271,16 @@ let topMovies = [
   {
     title: "Se7en",
     genre: {
-      genre: "mystery",
+      type: "mystery",
       description: "a suspenseful film full of twists and surprises",
     },
-    director: "David Fincher",
+    director:  {
+      name: "David Fincher",
+      bio:
+        "David Fincher is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.",
+      birthyear: 1964,
+      deathyear: "alive",
+    },
     description:
       "Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins as his motives.",
     imgURL:
