@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
 // 1.get all movies
 app.get("/topMovies", (req, res) => {
   res.json(topMovies);
+  res.send("All of the movies in the database");
 });
 
 //2. get a single movie's full details
@@ -21,25 +22,28 @@ app.get("/topMovies/:title", (req, res) => {
   res.json(
     topMovies.find((movie) => {
       return movie.title === req.params.title;
-    })
-  );
+     }));
+     res.send("The movie info you requested");
 });
 
 //3. Return data about a genre (description) by title
 app.get("/topMovies/:genre/:type", (req, res) => {
-  res.json(topMovies.genre.find((description) => {
-      return description === req.params.description;
-    })
+  res.json(
+    topMovies
+      .filter((movie) => movie.genre.type === req.params.type)
+      .map((movieList) => movieList.genre.description)[0]
   );
+  res.send("The genre info you requested");
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/topMovies/:director", (req, res) => {
+app.get("/topMovies/:director/:name", (req, res) => {
   res.json(
-    topMovies.director.find((directorinfo) => {
-      return directorinfo.director === req.params.director;
-    })
+    topMovies
+      .filter((movie) => movie.director.name === req.params.name)
+      .map((movieList) => movieList.director.name)[0]
   );
+  res.send("The genre info you requested");
 });
 
 //5.Allow new users to register
