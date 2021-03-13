@@ -1,5 +1,5 @@
 let topMovies = [
-    {
+    { 
       title: "Bladerunner",
       genre: {
         type: "sci-fi",
@@ -9,8 +9,8 @@ let topMovies = [
         name: "Ridley_Scott",
         bio:
           "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
-        birthyear: 1937,
-        deathyear: "alive",
+        birth: 1937,
+        death: "null",
       },
       description:
         "A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.",
