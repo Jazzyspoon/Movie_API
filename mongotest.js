@@ -1,22 +1,25 @@
 let topMovies = [
     { 
-      title: "Bladerunner",
-      genre: {
-        type: "sci-fi",
-        description: "a film with a futuristic theme",
+      Title: "Bladerunner",
+      Description:
+      "A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.",
+      Genre: {
+        Name: "sci-fi",
+        Description: "a film with a futuristic theme",
       },
-      director: {
-        name: "Ridley_Scott",
-        bio:
+      Director: {
+        Name: "Ridley_Scott",
+        Bio:
           "Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham).",
-        birth: 1937,
-        death: "null",
+        Birth: "1937",
+        death: "    ",
       },
-      description:
-        "A blade runner must pursue and terminate four replicants who stole a ship in space, and have returned to Earth to find their creator.",
-      imgURL:
-        "https://m.media-amazon.com/images/M/MV5BNzQzMzJhZTEtOWM4NS00MTdhLTg0YjgtMjM4MDRkZjUwZDBlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg",
-    },
+      ImagePath:
+        "/img/bladerunner.jpg",
+     Featured: true   
+    }
+    db.movies.insertOne(movie2)
+    ,
     {
       title: "Alien",
       genre: {
