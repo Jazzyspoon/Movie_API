@@ -7,12 +7,8 @@ const morgan = require("morgan");
 
 const app = express();
 
-
-
 const Movies = Models.Movie;
 const Users = Models.User;
-// const Genres = Models.Genre;
-// const Directors = Models.Director;
 
 //allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains from within your REST API.
 mongoose.connect("mongodb://localhost:27017/movieFlixDB", {
@@ -74,15 +70,6 @@ app.get("/movies/:Director/:Name", (req, res) => {
 });
 
 //5.Allow new users to register
-
-/* We’ll expect JSON in this format
-{
-  ID: Integer,
-  Username: String,
-  Password: String,
-  Email: String,
-  Birthday: Date
-}*/
 app.post("/users", (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
