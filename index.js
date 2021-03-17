@@ -9,6 +9,8 @@ const app = express();
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 
 //allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains from within your REST API.
 mongoose.connect("mongodb://localhost:27017/movieFlixDB", {
@@ -34,10 +36,10 @@ app.get("/movies", (req, res) => {
 });
 
 //2. get a single movie's full details
-app.get("/movies/:title", (req, res) => {
+app.get("/movies/:Title", (req, res) => {
   Movies.findOne({ Title: req.params.Title })
-    .then((movies) => {
-      res.status(201).json(movies);
+    .then((movie) => {
+      res.status(201).json(movie);
     })
     .catch((err) => {
       console.error(err);
@@ -45,23 +47,23 @@ app.get("/movies/:title", (req, res) => {
     });
 });
 
-//3. Return data about a genre (description) by title
-app.get("movies/:Genre/:Name", (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
-    .then((genre) => {
-      res.json(genre.Description);
-    })
-    .catch((err) => {
+//3. Return data about a genre (description) by movie title
+app.get('/movies/genres/:Title', (req, res) => {
+  Movies.findOne({ Title: req.params.Title })
+  .then((movie) => {
+      res.status(201).json(movie.Genre);
+  })
+  .catch((err) => {
       console.error(err);
-      res.status(500).send("Error: " + err);
-    });
+      res.status(500).send('Error: ' + err);
+  });
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/movies/:Director/:Name", (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
+app.get("/movies/directors/:Name", (req, res) => {
+  Movies.findOne({ "Director.Name": req.params.Name })
     .then((director) => {
-      res.json(director);
+      res.status(201).json(director.Director);
     })
     .catch((err) => {
       console.error(err);
@@ -70,7 +72,7 @@ app.get("/movies/:Director/:Name", (req, res) => {
 });
 
 //5.Allow new users to register
-app.post("/users", (req, res) => {
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -78,7 +80,7 @@ app.post("/users", (req, res) => {
       } else {
         Users.create({
           Username: req.body.Username,
-          Password: req.body.Password,
+          Password: hashedPassword,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
@@ -97,17 +99,6 @@ app.post("/users", (req, res) => {
     });
 });
 
-// Get all users
-app.get("/users", (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
 // Get a user by username
 app.get("/users/:Username", (req, res) => {
   Users.findOne({ Username: req.params.Username })
