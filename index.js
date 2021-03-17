@@ -112,7 +112,6 @@ app.get("/users/:Username", (req, res) => {
 });
 
 // Update a user's info, by username
-
 app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -124,7 +123,7 @@ app.put("/users/:Username", (req, res) => {
         Birthday: req.body.Birthday,
       },
     },
-    { new: true }, // This line makes sure that the updated document is returned
+    { new: true }, //  the updated document is returned
     (err, updatedUser) => {
       if (err) {
         console.error(err);
@@ -137,11 +136,11 @@ app.put("/users/:Username", (req, res) => {
 });
 
 // Add a movie to a user's list of favorites
-app.post("/users/:Username/:Favoritemovies/:MovieID", (req, res) => {
+app.post("/users/:Username/:Favoritemovies/:ID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
-      $push: { FavoriteMovies: req.params.MovieID },
+      $push: { Favoritemovies: req.params.ID },
     },
     { new: true }, // This line makes sure that the updated document is returned
     (err, updatedUser) => {
@@ -159,7 +158,7 @@ app.post("/users/:Username/:Favoritemovies/:MovieID", (req, res) => {
 app.delete("/users/:Username/Movies/MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
-    { $pull: { FavoriteMovies: req.params.ID } },
+    { $pull: { Favoritemovies: req.params.ID } },
     { new: true },
     (err, updatedUser) => {
       if (err) {
