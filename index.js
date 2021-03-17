@@ -3,9 +3,10 @@ const Models = require("./models.js");
 const express = require("express"),
   bodyParser = require("body-parser"),
   uuid = require("uuid");
-
 const morgan = require("morgan");
+
 const app = express();
+
 
 
 const Movies = Models.Movie;
@@ -25,7 +26,7 @@ app.get("/", (req, res) => {
 });
 
 // 1.get all movies
-app.get("/Movies", (req, res) => {
+app.get("/movies", (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -37,7 +38,7 @@ app.get("/Movies", (req, res) => {
 });
 
 //2. get a single movie's full details
-app.get("/Movies/:title", (req, res) => {
+app.get("/movies/:title", (req, res) => {
   Movies.findOne({ Title: req.params.Title })
     .then((movies) => {
       res.status(201).json(movies);
@@ -49,7 +50,7 @@ app.get("/Movies/:title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by title
-app.get("Movies/:Genre/:Name", (req, res) => {
+app.get("movies/:Genre/:Name", (req, res) => {
   Genres.findOne({ Name: req.params.Name })
     .then((genre) => {
       res.json(genre.Description);
@@ -61,7 +62,7 @@ app.get("Movies/:Genre/:Name", (req, res) => {
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/Movies/:Director/:Name", (req, res) => {
+app.get("/movies/:Director/:Name", (req, res) => {
   Directors.findOne({ Name: req.params.Name })
     .then((director) => {
       res.json(director);
@@ -82,7 +83,7 @@ app.get("/Movies/:Director/:Name", (req, res) => {
   Email: String,
   Birthday: Date
 }*/
-app.post("/Users", (req, res) => {
+app.post("/users", (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -110,7 +111,7 @@ app.post("/Users", (req, res) => {
 });
 
 // Get all users
-app.get("/Users", (req, res) => {
+app.get("/users", (req, res) => {
   Users.find()
     .then((users) => {
       res.status(201).json(users);
@@ -134,7 +135,7 @@ app.get("/users/:Username", (req, res) => {
 
 // Update a user's info, by username
 
-app.put("/Users/:Username", (req, res) => {
+app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
@@ -158,7 +159,7 @@ app.put("/Users/:Username", (req, res) => {
 });
 
 // Add a movie to a user's list of favorites
-app.post("/Users/:Username/:Favoritemovies/:MovieID", (req, res) => {
+app.post("/users/:Username/:Favoritemovies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     {
@@ -177,7 +178,7 @@ app.post("/Users/:Username/:Favoritemovies/:MovieID", (req, res) => {
 });
 
 //8. Allow users to remove a movie from their list of favorites
-app.delete("/Users/:Username/Movies/MovieID", (req, res) => {
+app.delete("/users/:Username/Movies/MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     { $pull: { FavoriteMovies: req.params.ID } },
@@ -194,7 +195,7 @@ app.delete("/Users/:Username/Movies/MovieID", (req, res) => {
 });
 
 // allow a user to deregister by username
-app.delete("/Users/:Username", (req, res) => {
+app.delete("/users/:Username", (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
