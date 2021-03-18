@@ -73,7 +73,7 @@ app.get("/movies/directors/:Name", (req, res) => {
 
 //5.Allow new users to register*
 app.post("/users", (req, res) => {
-  Users.findOne({Username: req.body.Username})
+  Users.findOne({ Username: req.body.Username })
     .then((user) => {
       //does user already exist?
       if (user) {
@@ -126,8 +126,10 @@ app.get("/users/:Username", (req, res) => {
 
 // Update a user's info, by username*
 app.put("/users/:Username", (req, res) => {
-  Users.findOneAndUpdate({Username: req.params.Username},
-    {$set: {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $set: {
         Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
