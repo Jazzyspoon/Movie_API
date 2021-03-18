@@ -126,23 +126,21 @@ app.get("/users/:Username", (req, res) => {
 
 // Update a user's info, by username*
 app.put("/users/:Username", (req, res) => {
-  Users.findOneAndUpdate(
-    {Username: req.params.Username},
-    {
-      $set: {
+  Users.findOneAndUpdate({Username: req.params.Username},
+    {$set: {
         Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
-        Birthday: req.body.Birthday
+        Birthday: req.body.Birthday,
       },
     },
     { new: true }, //  the updated document is returned
-    (err, updatedUser) => {
+    (err, user) => {
       if (err) {
         console.error(err);
         res.status(500).send("Error: " + err);
       } else {
-        res.json(updatedUser);
+        res.json(user);
       }
     }
   );
