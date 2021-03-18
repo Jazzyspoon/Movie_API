@@ -76,11 +76,11 @@ app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + "already exists");
+        return res.status(400).send(req.body.Username + "exists in database");
       } else {
         Users.create({
           Username: req.body.Username,
-          Password: hashedPassword,
+          Password: req.body.Password,
           Email: req.body.Email,
           Birthday: req.body.Birthday,
         })
@@ -96,6 +96,18 @@ app.post('/users', (req, res) => {
     .catch((error) => {
       console.error(error);
       res.status(500).send("Error: " + error);
+    });
+});
+
+// get all users
+app.get("/users", (req, res) => {
+  Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
     });
 });
 
@@ -155,7 +167,7 @@ app.post("/users/:Username/:Favoritemovies/:ID", (req, res) => {
 });
 
 //8. Allow users to remove a movie from their list of favorites
-app.delete("/users/:Username/Movies/MovieID", (req, res) => {
+app.delete("/users/:Username/:Favoritemovies/:ID", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     { $pull: { Favoritemovies: req.params.ID } },
