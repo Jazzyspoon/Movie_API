@@ -48,15 +48,15 @@ app.get("/movies/:Title", (req, res) => {
 });
 
 //3. Return data about a genre (description) by movie title
-app.get('/movies/genres/:Title', (req, res) => {
+app.get("/movies/genres/:Title", (req, res) => {
   Movies.findOne({ Title: req.params.Title })
-  .then((movie) => {
+    .then((movie) => {
       res.status(201).json(movie.Genre);
-  })
-  .catch((err) => {
+    })
+    .catch((err) => {
       console.error(err);
-      res.status(500).send('Error: ' + err);
-  });
+      res.status(500).send("Error: " + err);
+    });
 });
 
 //4. Return data about a director (bio, birth year, death year) by name
@@ -72,11 +72,12 @@ app.get("/movies/directors/:Name", (req, res) => {
 });
 
 //5.Allow new users to register
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username })
+app.post("/users", (req, res) => {
+  Users.findOne({ username: req.body.username })
     .then((user) => {
+      // search to see if a user already exists
       if (user) {
-        return res.status(400).send(req.body.Username + "exists in database");
+        return res.status(400).send(req.body.username + "already exists");
       } else {
         Users.create({
           Username: req.body.Username,
