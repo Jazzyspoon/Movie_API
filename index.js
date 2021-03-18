@@ -71,13 +71,13 @@ app.get("/movies/directors/:Name", (req, res) => {
     });
 });
 
-//5.Allow new users to register
+//5.Allow new users to register*
 app.post("/users", (req, res) => {
-  Users.findOne({ username: req.body.username })
+  Users.findOne({Username: req.body.Username})
     .then((user) => {
-      // search to see if a user already exists
+      //does user already exist?
       if (user) {
-        return res.status(400).send(req.body.username + "already exists");
+        return res.status(400).send(req.body.Username + "already exists");
       } else {
         Users.create({
           Username: req.body.Username,
@@ -88,15 +88,15 @@ app.post("/users", (req, res) => {
           .then((user) => {
             res.status(201).json(user);
           })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error: " + error);
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send("Error: " + err);
           });
       }
     })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
     });
 });
 
@@ -124,16 +124,16 @@ app.get("/users/:Username", (req, res) => {
     });
 });
 
-// Update a user's info, by username
+// Update a user's info, by username*
 app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
-    { Username: req.params.Username },
+    {Username: req.params.Username},
     {
       $set: {
         Username: req.body.Username,
         Password: req.body.Password,
         Email: req.body.Email,
-        Birthday: req.body.Birthday,
+        Birthday: req.body.Birthday
       },
     },
     { new: true }, //  the updated document is returned
