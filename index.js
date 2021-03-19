@@ -6,6 +6,7 @@ const express = require("express"),
 const morgan = require("morgan");
 
 const app = express();
+app.use(express.json());
 
 const Movies = Models.Movie;
 const Users = Models.User;
