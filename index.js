@@ -7,6 +7,9 @@ const morgan = require("morgan");
 
 const app = express();
 app.use(express.json());
+let auth = require("./auth")(app);
+const passport = require("passport");
+require("./passport");
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -25,52 +28,65 @@ app.get("/", (req, res) => {
 });
 
 // 1.get all movies
-app.get("/movies", (req, res) => {
-  Movies.find()
-    .then((movies) => {
-      res.status(201).json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then((movies) => {
+        res.status(201).json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //2. get a single movie's full details
-app.get("/movies/:Title", (req, res) => {
-  Movies.findOne({ Title: req.params.Title })
-    .then((movie) => {
-      res.status(201).json(movie);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies/:Title",
+    (req, res) => {
+    Movies.findOne({ Title: req.params.Title })
+      .then((movie) => {
+        res.status(201).json(movie);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //3. Return data about a genre (description) by movie title
-app.get("/movies/genres/:Title", (req, res) => {
-  Movies.findOne({ Title: req.params.Title })
-    .then((movie) => {
-      res.status(201).json(movie.Genre);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies/genres/:Title",
+    (req, res) => {
+    Movies.findOne({ Title: req.params.Title })
+      .then((movie) => {
+        res.status(201).json(movie.Genre);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //4. Return data about a director (bio, birth year, death year) by name
-app.get("/movies/directors/:Name", (req, res) => {
-  Movies.findOne({ "Director.Name": req.params.Name })
-    .then((director) => {
-      res.status(201).json(director.Director);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies/directors/:Name", 
+  (req, res) => {
+    Movies.findOne({ "Director.Name": req.params.Name })
+      .then((director) => {
+        res.status(201).json(director.Director);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 //5.Allow new users to register*
 app.post("/users", (req, res) => {
