@@ -1,14 +1,17 @@
 const mongoose = require("mongoose");
 const Models = require("./models.js");
-const express = require("express"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
+const express = require("express");
+const bodyParser = require("body-parser");
+const uuid = require("uuid");
 const morgan = require("morgan");
 const passport = require("passport");
 require("./passport");
 
 const app = express();
+
 app.use(express.json());
+
+
 let auth = require("./auth")(app);
 
 const Movies = Models.Movie;
