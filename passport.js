@@ -7,8 +7,7 @@ let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
-
-//   LocalStrategy takes a username and password from the 
+//   LocalStrategy takes a username and password from the
 //   request body and uses Mongoose to check your database for a user with the same username
 passport.use(
   new LocalStrategy(
