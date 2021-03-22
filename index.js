@@ -193,41 +193,40 @@ app.get(
 );
 
 // Update a user's info, by username*
-app.put("/users/:Username", [
-  check("Username", "Username is required").isLength({ min: 5 }),
-  check("Username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
-  check("Password", "Password is required").not().isEmpty(),
-  check("Email", "Email does not appear to be valid").isEmail()
-],
-(req, res) => {
-  let errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
-  passport.authenticate("jwt", { session: false }),
+app.put('/users/:username',
+  [
+    check('username', 'Username must be at least 5 characters').isLength({min:5}),
+    check('username', 'Username must contain only alphanumeric characters (A-Z, 0-9).').isAlphanumeric(),
+    check('password', 'Password is required').not().isEmpty(),
+    check('email', 'Email is not valid').isEmail()
+  ],
   (req, res) => {
+    passport.authenticate('jwt', { session: false });
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+    let hashedPassword = Users.hashPassword(req.body.password);
     Users.findOneAndUpdate(
-      { Username: req.params.Username },
+      { username: req.params.username },
       {
-        $set: {
-          Username: req.body.Username,
-          Password: hashedPassword,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday,
-        },
+        $set:
+          {
+            username: req.body.username,
+            password: hashedPassword,
+            email: req.body.email,
+          }
       },
-      { new: true }, //  the updated document is returned
-      (err, user) => {
-        if (err) {
+      { new: true },
+      (err, updatedUser) => {
+        if(err) {
           console.error(err);
-          res.status(500).send("Error: " + err);
+          res.status(500).send('Error: ' + err);
         } else {
-          res.json(user);
+          res.json(updatedUser);
         }
-      }
-    );
-  }
-);
+  });
+});
 
 // Add a movie to a user's list of favorites
 app.post(
