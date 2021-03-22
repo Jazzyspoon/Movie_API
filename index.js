@@ -5,13 +5,13 @@ const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const morgan = require("morgan");
 const passport = require("passport");
-require("./passport.js");
+require("./passport");
 
 const app = express();
 
 app.use(express.json());
 
-let auth = require("./auth.js")(app);
+let auth = require("./auth")(app);
 
 const Movies = Models.Movie;
 const Users = Models.User;
