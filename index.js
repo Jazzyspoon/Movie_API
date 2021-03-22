@@ -11,13 +11,10 @@ const app = express();
 
 app.use(express.json());
 
-
 let auth = require("./auth")(app);
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
 
 //allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains from within your REST API.
 mongoose.connect("mongodb://localhost:27017/movieFlixDB", {
@@ -27,7 +24,7 @@ mongoose.connect("mongodb://localhost:27017/movieFlixDB", {
 
 //load a generic message
 app.get("/", (req, res) => {
-  res.send("Welcome to my MovieFlix App");
+  res.send("Welcome to the MovieFlix App");
 });
 
 // 1.get all movies
