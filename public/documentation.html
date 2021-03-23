@@ -2,22 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <title>documentation</title>
-    <link href="./css/reset.min.css" rel="stylesheet" type="text/css"/>
-    <link href="./css/style.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="./css/reset.min.css" rel="stylesheet" type="text/css" />
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
   </head>
-  <body>  
-  <div>
-    
-      <h5>Exercise Objective:</h5> <p>To build the server-side component of a “movies” web
-      application. 
-      The web application will provide users with access to information about
-      different movies, directors, and genres. Users will be able to sign
-      up, update their personal information, and create a list of their favorite
-      movies.
-    </p>
+  <body>
+    <div>
+      <h5>Exercise Objective:</h5>
+      <p>
+        To build the server-side component of a “movies” web application. The
+        web application will provide users with access to information about
+        different movies, directors, and genres. Users will be able to sign up,
+        update their personal information, and create a list of their favorite
+        movies.
+      </p>
     </div>
     <table class="table table-bordered">
       <thead>
@@ -34,200 +42,188 @@
           <th scope="row">Return a list of ALL movies to the user</th>
           <td>/movies</td>
           <td>GET</td>
-          <td>app.get("/movies", (req, res) => {
-            Movies.find()
-              .then((movies) => {
-                res.status(201).json(movies);
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send("Error: " + err);
-              });
-          });</td>
+          <td>
+            app.get("/movies", (req, res) => { Movies.find() .then((movies) => {
+            res.status(201).json(movies); }) .catch((err) => {
+            console.error(err); res.status(500).send("Error: " + err); }); });
+          </td>
           <td>A Json object holding data about all of the movies</td>
-          
         </tr>
         <tr>
-          <th scope="row">Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</th>
+          <th scope="row">
+            Return data (description, genre, director, image URL, whether it’s
+            featured or not) about a single movie by title to the user
+          </th>
           <td>/movies/:Title</td>
           <td>GET</td>
-          <td>app.get("/movies/:Title", (req, res) => {
-            Movies.findOne({ Title: req.params.Title })
-              .then((movie) => {
-                res.status(201).json(movie);
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send("Error: " + err);
-              });
-          });</td>
-          <td>A json object holding data about a single movie, containing the descritpion, genre, director, img, and whether it's featured <br><h6 class='text-primary'>{ title: 'moviename', description: 'movie descriptor', genre: 'genre1', director:'director name', imgURL: 'img.url', currently-featured: 'yes/no'}</h6> </td>
+          <td>
+            app.get("/movies/:Title", (req, res) => { Movies.findOne({ Title:
+            req.params.Title }) .then((movie) => { res.status(201).json(movie);
+            }) .catch((err) => { console.error(err);
+            res.status(500).send("Error: " + err); }); });
+          </td>
+          <td>
+            A json object holding data about a single movie, containing the
+            descritpion, genre, director, img, and whether it's featured <br />
+            <h6 class="text-primary">
+              { title: 'moviename', description: 'movie descriptor', genre:
+              'genre1', director:'director name', imgURL: 'img.url',
+              currently-featured: 'yes/no'}
+            </h6>
+          </td>
         </tr>
         <tr>
-          <th scope="row">Return data about a genre (description) by name/title (e.g., “Thriller”)</th>
-          <td >/movies/genres/:Title</td>
+          <th scope="row">
+            Return data about a genre (description) by name/title (e.g.,
+            “Thriller”)
+          </th>
+          <td>/movies/genres/:Title</td>
           <td>GET</td>
-          <td>app.get("/movies/genres/:Title", (req, res) => {
-            Movies.findOne({ Title: req.params.Title })
-              .then((movie) => {
-                res.status(201).json(movie.Genre);
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send("Error: " + err);
-              });
-          });</td>
-          <td>A json object holding data about a single movie, containing the genre(s) <br> <h6 class='text-primary'> { title: 'moviename', genre: {type: 'genre type', description: 'genre description'}}</h6></td>
+          <td>
+            app.get("/movies/genres/:Title", (req, res) => { Movies.findOne({
+            Title: req.params.Title }) .then((movie) => {
+            res.status(201).json(movie.Genre); }) .catch((err) => {
+            console.error(err); res.status(500).send("Error: " + err); }); });
+          </td>
+          <td>
+            A json object holding data about a single movie, containing the
+            genre(s) <br />
+            <h6 class="text-primary">
+              { title: 'moviename', genre: {type: 'genre type', description:
+              'genre description'}}
+            </h6>
+          </td>
         </tr>
         <tr>
-          <th scope="row">Return data about a director (bio, birth year, death year) by name</th>
-          <td >/movies/directors/:Name</td>
+          <th scope="row">
+            Return data about a director (bio, birth year, death year) by name
+          </th>
+          <td>/movies/directors/:Name</td>
           <td>GET</td>
-          <td>app.get("/movies/directors/:Name", (req, res) => {
-            Movies.findOne({ "Director.Name": req.params.Name })
-              .then((director) => {
-                res.status(201).json(director.Director);
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send("Error: " + err);
-              });
-          });</td>
-          <td>A json object holding data about the director, including bio, birthyear, deathyear.<br><h6 class='text-primary'>{director: {name:'director name', bio: 'director bio', birth-year: 'birthyear', death-year: 'deathyear/alive'}}</h6></td>
+          <td>
+            app.get("/movies/directors/:Name", (req, res) => { Movies.findOne({
+            "Director.Name": req.params.Name }) .then((director) => {
+            res.status(201).json(director.Director); }) .catch((err) => {
+            console.error(err); res.status(500).send("Error: " + err); }); });
+          </td>
+          <td>
+            A json object holding data about the director, including bio,
+            birthyear, deathyear.<br />
+            <h6 class="text-primary">
+              {director: {name:'director name', bio: 'director bio', birth-year:
+              'birthyear', death-year: 'deathyear/alive'}}
+            </h6>
+          </td>
         </tr>
         <tr>
           <th scope="row">Allow new users to register</th>
           <td>/userNames/:name</td>
           <td>POST</td>
-          <td>app.post("/users", (req, res) => {
-            Users.findOne({ Username: req.body.Username })
-              .then((user) => {
-                //does user already exist?
-                if (user) {
-                  return res.status(400).send(req.body.Username + "already exists");
-                } else {
-                  Users.create({
-                    Username: req.body.Username,
-                    Password: req.body.Password,
-                    Email: req.body.Email,
-                    Birthday: req.body.Birthday,
-                  })
-                    .then((user) => {
-                      res.status(201).json(user);
-                    })
-                    .catch((err) => {
-                      console.error(err);
-                      res.status(500).send("Error: " + err);
-                    });
-                }
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send("Error: " + err);
-              });
-          });</td>
-          <td>A text message indicating whether user was registered successfully <br> <h6 class="text-primary">"Registration successful.  Welcome!"</h6></td>
+          <td>
+            app.post("/users", (req, res) => { Users.findOne({ Username:
+            req.body.Username }) .then((user) => { //does user already exist? if
+            (user) { return res.status(400).send(req.body.Username + "already
+            exists"); } else { Users.create({ Username: req.body.Username,
+            Password: req.body.Password, Email: req.body.Email, Birthday:
+            req.body.Birthday, }) .then((user) => { res.status(201).json(user);
+            }) .catch((err) => { console.error(err);
+            res.status(500).send("Error: " + err); }); } }) .catch((err) => {
+            console.error(err); res.status(500).send("Error: " + err); }); });
+          </td>
+          <td>
+            A text message indicating whether user was registered successfully
+            <br />
+            <h6 class="text-primary">"Registration successful. Welcome!"</h6>
+          </td>
         </tr>
         <tr>
           <th scope="row">Allow users to update their user info (username)</th>
           <td>/userNames/:name</td>
           <td>PUT</td>
-          <td>app.put("/users/:Username", (req, res) => {
-            Users.findOneAndUpdate(
-              { Username: req.params.Username },
-              {
-                $set: {
-                  Username: req.body.Username,
-                  Password: req.body.Password,
-                  Email: req.body.Email,
-                  Birthday: req.body.Birthday,
-                },
-              },
-              { new: true }, //  the updated document is returned
-              (err, user) => {
-                if (err) {
-                  console.error(err);
-                  res.status(500).send("Error: " + err);
-                } else {
-                  res.json(user);
-                }
-              }
-            );
-          });
-        </td>
-          <td>A text indicating that a parameter was updated.<br><h6 class="text-primary">"Your information has been updated."</h6>  </td>
-        </tr>
-        <tr>
-          <th scope="row">Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
-          <td >/users/:Username/:Favoritemovies/:ID</td>
-          <td>POST</td>
-          <td>app.post("/users/:Username/:Favoritemovies/:ID", (req, res) => {
-            Users.findOneAndUpdate(
-              { Username: req.params.Username },
-              {
-                $push: { Favoritemovies: req.params.ID },
-              },
-              { new: true }, // This line makes sure that the updated document is returned
-              (err, updatedUser) => {
-                if (err) {
-                  console.error(err);
-                  res.status(500).send("Error: " + err);
-                } else {
-                  res.json(updatedUser);
-                }
-              }
-            );
-          });</td>
-          <td>a text message indicating that the movie selection has been added to their favorites.<br><h6 class="text-primary">"Movie added to favorites."</h6></td>
-        </tr>
-        <tr>
-          <th scope="row">Allow users to remove a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</th>
-          <td >/users/:Username/:Favoritemovies?:ID</td>
-          <td>DELETE</td>
-          <td>app.delete("/users/:Username/:Favoritemovies/:ID", (req, res) => {
-            Users.findOneAndUpdate(
-              { Username: req.params.Username },
-              { $pull: { Favoritemovies: req.params.ID } },
-              { new: true },
-              (err, updatedUser) => {
-                if (err) {
-                  console.error(err);
-                  res.status(500).send("Error: " + err);
-                } else {
-                  res.json(updatedUser);
-                }
-              }
-            );
-          });</td>
-          <td>a text message indicating that the movie selection has been added to their favorites<br><h6 class="text-primary">"Movie removed from favorites."</h6>.</td>
-        </tr>
-        <tr>
-          <th scope="row">Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</th>
-          <td >/user/:Username</td>
-          <td>DELETE</td>
-          <td>app.delete("/users/:Username", (req, res) => {
-            Users.findOneAndRemove({ Username: req.params.Username })
-              .then((user) => {
-                if (!user) {
-                  res.status(400).send(req.params.Username + " was not found");
-                } else {
-                  res.status(200).send(req.params.Username + " was deleted.");
-                }
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send("Error: " + err);
-              });
-          });
+          <td>
+            app.put("/users/:Username", (req, res) => { Users.findOneAndUpdate(
+            { Username: req.params.Username }, { $set: { Username:
+            req.body.Username, Password: req.body.Password, Email:
+            req.body.Email, Birthday: req.body.Birthday, }, }, { new: true }, //
+            the updated document is returned (err, user) => { if (err) {
+            console.error(err); res.status(500).send("Error: " + err); } else {
+            res.json(user); } } ); });
           </td>
-          <td>A text message indicating that the user name and email have been removed from the database <br><h6 class="text-primary">"User deleted"</h6></td>
+          <td>
+            A text indicating that a parameter was updated.<br />
+            <h6 class="text-primary">"Your information has been updated."</h6>
+          </td>
         </tr>
-        
+        <tr>
+          <th scope="row">
+            Allow users to add a movie to their list of favorites (showing only
+            a text that a movie has been added—more on this later)
+          </th>
+          <td>/users/:Username/:Favoritemovies/:ID</td>
+          <td>POST</td>
+          <td>
+            app.post("/users/:Username/:Favoritemovies/:ID", (req, res) => {
+            Users.findOneAndUpdate( { Username: req.params.Username }, { $push:
+            { Favoritemovies: req.params.ID }, }, { new: true }, // This line
+            makes sure that the updated document is returned (err, updatedUser)
+            => { if (err) { console.error(err); res.status(500).send("Error: " +
+            err); } else { res.json(updatedUser); } } ); });
+          </td>
+          <td>
+            a text message indicating that the movie selection has been added to
+            their favorites.<br />
+            <h6 class="text-primary">"Movie added to favorites."</h6>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            Allow users to remove a movie to their list of favorites (showing
+            only a text that a movie has been added—more on this later)
+          </th>
+          <td>/users/:Username/:Favoritemovies?:ID</td>
+          <td>DELETE</td>
+          <td>
+            app.delete("/users/:Username/:Favoritemovies/:ID", (req, res) => {
+            Users.findOneAndUpdate( { Username: req.params.Username }, { $pull:
+            { Favoritemovies: req.params.ID } }, { new: true }, (err,
+            updatedUser) => { if (err) { console.error(err);
+            res.status(500).send("Error: " + err); } else {
+            res.json(updatedUser); } } ); });
+          </td>
+          <td>
+            a text message indicating that the movie selection has been added to
+            their favorites<br />
+            <h6 class="text-primary">"Movie removed from favorites."</h6>
+            .
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">
+            Allow existing users to deregister (showing only a text that a user
+            email has been removed—more on this later)
+          </th>
+          <td>/user/:Username</td>
+          <td>DELETE</td>
+          <td>
+            app.delete("/users/:Username", (req, res) => {
+            Users.findOneAndRemove({ Username: req.params.Username })
+            .then((user) => { if (!user) {
+            res.status(400).send(req.params.Username + " was not found"); } else
+            { res.status(200).send(req.params.Username + " was deleted."); } })
+            .catch((err) => { console.error(err); res.status(500).send("Error: "
+            + err); }); });
+          </td>
+          <td>
+            A text message indicating that the user name and email have been
+            removed from the database <br />
+            <h6 class="text-primary">"User deleted"</h6>
+          </td>
+        </tr>
       </tbody>
     </table>
 
-<!-- table for movie database -->
-<h2>Movie Table:</h2>
+    <!-- table for movie database -->
+    <h2>Movie Table:</h2>
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -244,7 +240,11 @@
         <tr>
           <th scope="row">"604f9e2305951614efe12f39"</th>
           <td>Bladerunner</td>
-          <td>A blade runner must pursue and terminate four replicants who stole a ship in space,<br> and have returned to Earth to find their creator.</td>
+          <td>
+            A blade runner must pursue and terminate four replicants who stole a
+            ship in space,<br />
+            and have returned to Earth to find their creator.
+          </td>
           <td>1</td>
           <td>1</td>
           <td>/img/bladerunner.jpg</td>
@@ -253,7 +253,12 @@
         <tr>
           <th scope="row">"604f9e3505951614efe12f3a"</th>
           <td>Alien</td>
-          <td>After a space merchant vessel receives an unknown transmission as a distress call,<br> one of the crew is attacked by a mysterious life form and they soon realize that its life cycle has merely begun.</td>
+          <td>
+            After a space merchant vessel receives an unknown transmission as a
+            distress call,<br />
+            one of the crew is attacked by a mysterious life form and they soon
+            realize that its life cycle has merely begun.
+          </td>
           <td>1</td>
           <td>1</td>
           <td>/img/alien.jpg</td>
@@ -262,7 +267,13 @@
         <tr>
           <th scope="row">"604f9e5805951614efe12f3b"</th>
           <td>The Chronicles Of Riddick</td>
-          <td>The wanted criminal Richard Bruno Riddick (Vin Diesel) arrives on a planet called Helion Prime<br> and finds himself up against an invading empire called the Necromongers, an army that plans to convert or kill all humans in the universe..</td>
+          <td>
+            The wanted criminal Richard Bruno Riddick (Vin Diesel) arrives on a
+            planet called Helion Prime<br />
+            and finds himself up against an invading empire called the
+            Necromongers, an army that plans to convert or kill all humans in
+            the universe..
+          </td>
           <td>1</td>
           <td>2</td>
           <td>/img/riddick.jpg</td>
@@ -271,7 +282,11 @@
         <tr>
           <th scope="row">"604f9e6505951614efe12f3c"</th>
           <td>The Avengers</td>
-          <td>Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop<br>the mischievous Loki and his alien army from enslaving humanity.</td>
+          <td>
+            Earth's mightiest heroes must come together and learn to fight as a
+            team if they are going to stop<br />the mischievous Loki and his
+            alien army from enslaving humanity.
+          </td>
           <td>2</td>
           <td>3</td>
           <td>/img/avengers.jpg</td>
@@ -280,7 +295,11 @@
         <tr>
           <th scope="row">"604f9e7405951614efe12f3d"</th>
           <td>Phantasm</td>
-          <td>A teenage boy and his friends face off against a mysterious grave robber known only as the Tall Man,<br> who keeps a lethal arsenal of terrible weapons with him.</td>
+          <td>
+            A teenage boy and his friends face off against a mysterious grave
+            robber known only as the Tall Man,<br />
+            who keeps a lethal arsenal of terrible weapons with him.
+          </td>
           <td>3</td>
           <td>4</td>
           <td>/img/phantasm.jpg</td>
@@ -289,7 +308,12 @@
         <tr>
           <th scope="row">"604f9e9305951614efe12f3e"</th>
           <td>Steel Magnolias</td>
-          <td>A young beautician, newly arrived in a small Louisiana town, finds work at the local salon,<br> where a small group of women share a close bond of friendship, and welcome her into the fold.</td>
+          <td>
+            A young beautician, newly arrived in a small Louisiana town, finds
+            work at the local salon,<br />
+            where a small group of women share a close bond of friendship, and
+            welcome her into the fold.
+          </td>
           <td>4</td>
           <td>5</td>
           <td>/img/steel.jpg</td>
@@ -298,7 +322,11 @@
         <tr>
           <th scope="row">"604f9ea205951614efe12f3f"</th>
           <td>The Matrix</td>
-          <td>When a beautiful stranger leads computer hacker Neo to a forbidding underworld, <br>he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.</td>
+          <td>
+            When a beautiful stranger leads computer hacker Neo to a forbidding
+            underworld, <br />he discovers the shocking truth--the life he knows
+            is the elaborate deception of an evil cyber-intelligence.
+          </td>
           <td>1</td>
           <td>6</td>
           <td>/img/matrix.jpg</td>
@@ -307,7 +335,11 @@
         <tr>
           <th scope="row">"604f9eae05951614efe12f40"</th>
           <td>2012</td>
-          <td>A frustrated writer struggles to keep his family alive when a series of global catastrophes<br> threatens to annihilate mankind.</td>
+          <td>
+            A frustrated writer struggles to keep his family alive when a series
+            of global catastrophes<br />
+            threatens to annihilate mankind.
+          </td>
           <td>2</td>
           <td>7</td>
           <td>/img/2012.jpg</td>
@@ -316,7 +348,11 @@
         <tr>
           <th scope="row">"604f9eba05951614efe12f41"</th>
           <td>Unforgiven</td>
-          <td>Retired Old West gunslinger William Munny reluctantly takes on one last job, with the help<br> of his old partner Ned Logan and a young man, The 'Schofield Kid.'</td>
+          <td>
+            Retired Old West gunslinger William Munny reluctantly takes on one
+            last job, with the help<br />
+            of his old partner Ned Logan and a young man, The 'Schofield Kid.'
+          </td>
           <td>5</td>
           <td>8</td>
           <td>/img/unforgiven.jpg</td>
@@ -325,13 +361,16 @@
         <tr>
           <th scope="row">"604f9ecc05951614efe12f42"</th>
           <td>Se7en</td>
-          <td>Two detectives, a rookie and a veteran, hunt a serial killer who uses the seven deadly sins<br> as his motives.</td>
+          <td>
+            Two detectives, a rookie and a veteran, hunt a serial killer who
+            uses the seven deadly sins<br />
+            as his motives.
+          </td>
           <td>6</td>
           <td>9</td>
           <td>img/seven.jpg</td>
           <td>No</td>
         </tr>
-        
       </tbody>
     </table>
 
@@ -349,32 +388,85 @@
         <tr>
           <th scope="row">1</th>
           <td>sci-fi</td>
-          <td>Science fiction (sometimes shortened to sci-fi or SF) is a genre of speculative fiction<br> that typically deals with imaginative and futuristic concepts such as advanced science and technology, space exploration, time travel, parallel universes, and extraterrestrial life. It has been called the 'literature of ideas', and often explores the potential consequences of scientific, social, and technological innovations.</td>
+          <td>
+            Science fiction (sometimes shortened to sci-fi or SF) is a genre of
+            speculative fiction<br />
+            that typically deals with imaginative and futuristic concepts such
+            as advanced science and technology, space exploration, time travel,
+            parallel universes, and extraterrestrial life. It has been called
+            the 'literature of ideas', and often explores the potential
+            consequences of scientific, social, and technological innovations.
+          </td>
         </tr>
         <tr>
           <th scope="row">2</th>
           <td>action</td>
-          <td>Action film is a film genre in which the protagonist or protagonists are thrust into a<br> series of events that typically include violence, extended fighting, physical feats, rescues and frantic chases. Action films tend to feature a mostly resourceful hero struggling against incredible odds, which include life-threatening situations, a dangerous villain, or a pursuit which usually concludes in victory for the hero (though a small number of films in this genre have ended in the victory for the villain instead). </td>
+          <td>
+            Action film is a film genre in which the protagonist or protagonists
+            are thrust into a<br />
+            series of events that typically include violence, extended fighting,
+            physical feats, rescues and frantic chases. Action films tend to
+            feature a mostly resourceful hero struggling against incredible
+            odds, which include life-threatening situations, a dangerous
+            villain, or a pursuit which usually concludes in victory for the
+            hero (though a small number of films in this genre have ended in the
+            victory for the villain instead).
+          </td>
         </tr>
         <tr>
           <th scope="row">3</th>
           <td>horror</td>
-          <td>A horror film is one that seeks to elicit fear in its audience for entertainment purposes.<br> Horror films additionally aim to evoke viewers' nightmares, fears, revulsions and terror of the unknown or the macabre. Initially inspired by literature from authors such as Edgar Allan Poe, Bram Stoker, and Mary Shelley, horror has existed as a film genre for more than a century. Horror may also overlap with the fantasy, supernatural fiction, and thriller genres. </td>
+          <td>
+            A horror film is one that seeks to elicit fear in its audience for
+            entertainment purposes.<br />
+            Horror films additionally aim to evoke viewers' nightmares, fears,
+            revulsions and terror of the unknown or the macabre. Initially
+            inspired by literature from authors such as Edgar Allan Poe, Bram
+            Stoker, and Mary Shelley, horror has existed as a film genre for
+            more than a century. Horror may also overlap with the fantasy,
+            supernatural fiction, and thriller genres.
+          </td>
         </tr>
         <tr>
           <th scope="row">4</th>
           <td>drama</td>
-          <td>In film and television, drama is a category of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.[1] Drama of this kind is usually qualified with additional terms that specify its particular super-genre, macro-genre, or micro-genre, such as soap opera (operatic drama), police crime drama, political drama, legal drama, historical drama, domestic drama, teen drama, and comedy-drama (dramedy). These terms tend to indicate a particular setting or subject-matter, or else they qualify the otherwise serious tone of a drama with elements that encourage a broader range of moods. </td>
+          <td>
+            In film and television, drama is a category of narrative fiction (or
+            semi-fiction) intended to be more serious than humorous in tone.[1]
+            Drama of this kind is usually qualified with additional terms that
+            specify its particular super-genre, macro-genre, or micro-genre,
+            such as soap opera (operatic drama), police crime drama, political
+            drama, legal drama, historical drama, domestic drama, teen drama,
+            and comedy-drama (dramedy). These terms tend to indicate a
+            particular setting or subject-matter, or else they qualify the
+            otherwise serious tone of a drama with elements that encourage a
+            broader range of moods.
+          </td>
         </tr>
         <tr>
           <th scope="row">5</th>
           <td>western</td>
-          <td>The American Film Institute defines Western films as those 'set in the American West that [embody] the spirit, the struggle, and the demise of the new frontier.'The term 'Western', used to describe a narrative film genre, appears to have originated with a July 1912 article in Motion Picture World magazine.[8] Most of the characteristics of Western films were part of 19th-century popular western fiction, and were firmly in place before film became a popular art form. </td>
+          <td>
+            The American Film Institute defines Western films as those 'set in
+            the American West that [embody] the spirit, the struggle, and the
+            demise of the new frontier.'The term 'Western', used to describe a
+            narrative film genre, appears to have originated with a July 1912
+            article in Motion Picture World magazine.[8] Most of the
+            characteristics of Western films were part of 19th-century popular
+            western fiction, and were firmly in place before film became a
+            popular art form.
+          </td>
         </tr>
         <tr>
           <th scope="row">6</th>
           <td>thriller</td>
-          <td>Thriller is a genre of fiction, having numerous, often overlapping subgenres. Thrillers are characterized and defined by the moods they elicit, giving viewers heightened feelings of suspense, excitement, surprise, anticipation and anxiety. Successful examples of thrillers are the films of Alfred Hitchcock. </td>
+          <td>
+            Thriller is a genre of fiction, having numerous, often overlapping
+            subgenres. Thrillers are characterized and defined by the moods they
+            elicit, giving viewers heightened feelings of suspense, excitement,
+            surprise, anticipation and anxiety. Successful examples of thrillers
+            are the films of Alfred Hitchcock.
+          </td>
         </tr>
       </tbody>
     </table>
@@ -395,131 +487,190 @@
         <tr>
           <th scope="row">1</th>
           <td>Ridley Scott</td>
-          <td>Described by film producer Michael Deeley as 'the very best eye in the business', director Ridley Scott was born on November 30, 1937 in South Shields, Tyne and Wear (then County Durham)</td>
+          <td>
+            Described by film producer Michael Deeley as 'the very best eye in
+            the business', director Ridley Scott was born on November 30, 1937
+            in South Shields, Tyne and Wear (then County Durham)
+          </td>
           <td>1937</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">2</th>
           <td>David Twohy</td>
-          <td>As both writer and director, David Twohy has contributed much to the film world, helping to elevate movies in such a way that Entertainment Weekly was prompted to name him 'one of the 100 most creative people in Hollywood.'</td>
+          <td>
+            As both writer and director, David Twohy has contributed much to the
+            film world, helping to elevate movies in such a way that
+            Entertainment Weekly was prompted to name him 'one of the 100 most
+            creative people in Hollywood.'
+          </td>
           <td>1955</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">3</th>
           <td>Joss Whedon</td>
-          <td>Joss Whedon is the middle of five brothers - his younger brothers are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his grandfather, John Whedon were successful television writers. Joss' mother, Lee Stearns, was a history teacher and she also wrote novels as Lee Whedon.</td>
+          <td>
+            Joss Whedon is the middle of five brothers - his younger brothers
+            are Jed Whedon and Zack Whedon. Both his father, Tom Whedon and his
+            grandfather, John Whedon were successful television writers. Joss'
+            mother, Lee Stearns, was a history teacher and she also wrote novels
+            as Lee Whedon.
+          </td>
           <td>1964</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">4</th>
           <td>Don Coscarelli</td>
-          <td>In much the same way that director George A. Romero creative output has been primarily centered around the highly successful 'Dead' series of zombie films, then fellow fantasy director Don Coscarelli has for over two decades seen his universe swirling around the lesser successful, but equally cult, and much loved 'Phantasm' series of horror movies.</td>
+          <td>
+            In much the same way that director George A. Romero creative output
+            has been primarily centered around the highly successful 'Dead'
+            series of zombie films, then fellow fantasy director Don Coscarelli
+            has for over two decades seen his universe swirling around the
+            lesser successful, but equally cult, and much loved 'Phantasm'
+            series of horror movies.
+          </td>
           <td>1954</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">5</th>
           <td>Herbert Ross</td>
-          <td>Herbert Ross was born on May 13, 1927 in Brooklyn, New York City, New York, USA as Herbert David Ross. He is known for his work on The Turning Point (1977), The Goodbye Girl (1977) and Goodbye, Mr. Chips (1969). He was married to Lee Radziwill and Nora Kaye. He died on October 9, 2001 in New York City.</td>
+          <td>
+            Herbert Ross was born on May 13, 1927 in Brooklyn, New York City,
+            New York, USA as Herbert David Ross. He is known for his work on The
+            Turning Point (1977), The Goodbye Girl (1977) and Goodbye, Mr. Chips
+            (1969). He was married to Lee Radziwill and Nora Kaye. He died on
+            October 9, 2001 in New York City.
+          </td>
           <td>1927</td>
           <td>2001</td>
         </tr>
         <tr>
           <th scope="row">6</th>
           <td>The Wachowski Brothers</td>
-          <td>Lana Wachowski and her sister Lilly Wachowski, also known as the Wachowskis, are the duo behind such ground-breaking movies as The Matrix (1999) and Cloud Atlas (2012). Born to mother Lynne, a nurse, and father Ron, a businessman of Polish descent, Wachowski grew up in Chicago and formed a tight creative relationship with her sister Lilly</td>
+          <td>
+            Lana Wachowski and her sister Lilly Wachowski, also known as the
+            Wachowskis, are the duo behind such ground-breaking movies as The
+            Matrix (1999) and Cloud Atlas (2012). Born to mother Lynne, a nurse,
+            and father Ron, a businessman of Polish descent, Wachowski grew up
+            in Chicago and formed a tight creative relationship with her sister
+            Lilly
+          </td>
           <td>1965</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">7</th>
           <td>Roland Emmerich</td>
-          <td>Roland Emmerich is a German film director and producer of blockbuster films like The Day After Tomorrow (2004), Godzilla (1998), Independence Day (1996) and The Patriot (2000). Before fame, he originally wanted to be a production designer, but decided to be a director, after watching the original Star Wars: Episode IV - A New Hope (1977).</td>
+          <td>
+            Roland Emmerich is a German film director and producer of
+            blockbuster films like The Day After Tomorrow (2004), Godzilla
+            (1998), Independence Day (1996) and The Patriot (2000). Before fame,
+            he originally wanted to be a production designer, but decided to be
+            a director, after watching the original Star Wars: Episode IV - A
+            New Hope (1977).
+          </td>
           <td>1955</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">8</th>
           <td>Clint Eastwood</td>
-          <td>Clint Eastwood is a highly succesful, award winner actor, director, and screenwriter whose career spans 6 decades and numerous film genres</td>
+          <td>
+            Clint Eastwood is a highly succesful, award winner actor, director,
+            and screenwriter whose career spans 6 decades and numerous film
+            genres
+          </td>
           <td>1930</td>
           <td>--</td>
         </tr>
         <tr>
           <th scope="row">9</th>
           <td>David Fincher</td>
-          <td>David Fincher was born in 1962 in Denver, Colorado, and was raised in Marin County, California. When he was 18 years old he went to work for John Korty at Korty Films in Mill Valley. He subsequently worked at ILM (Industrial Light and Magic) from 1981-1983.</td>
+          <td>
+            David Fincher was born in 1962 in Denver, Colorado, and was raised
+            in Marin County, California. When he was 18 years old he went to
+            work for John Korty at Korty Films in Mill Valley. He subsequently
+            worked at ILM (Industrial Light and Magic) from 1981-1983.
+          </td>
           <td>1962</td>
           <td>--</td>
         </tr>
       </tbody>
-    </table>  
-        <!-- users table -->
-        <h2>Users Table:</h2>       
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">userID</th>
-              <th scope="col">username</th>
-              <th scope="col">password</th>
-              <th scope="col">email</th>
-              <th scope="col">birthdate</th>
-              <th scope="col">Favoritemovies:</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">"604faae722d53316d935bcdd"</th>
-              <td>JohnnyD</td>
-              <td>test123</td>
-              <td>JD@gmail.com</td>
-              <td>1988-09-10</td>
-              <td>"604f9e2305951614efe12f39", "604d54350b9cec5678c342b8"</td>
-            </tr>
-            <tr>
-              <th scope="row">"604faebf22d53316d935bcde"</th>
-              <td>SteveO12</td>
-              <td>bum324</td>
-              <td>SD@gmail.com</td>
-              <td>1986-04-02</td>
-              <td>"604f9e7405951614efe12f3d","604f9e6505951614efe12f3c"</td>
-            </tr>
-            <tr>
-              <th scope="row">"604faefa22d53316d935bcdf"</th>
-              <td>JaneAmp2</td>
-              <td>fd98df</td>
-              <td>JA@gmail.com</td>
-              <td>2000-11-18</td>
-              <td>"604f9e9305951614efe12f3e"</td>
-            </tr> 
-            <tr>
-              <th scope="row">"604faf4622d53316d935bce0"</th>
-              <td>Max11</td>
-              <td>fghhb5</td>
-              <td>mucher@hotmail.com</td>
-              <td>2006-07-27</td>
-              <td>"604f9e5805951614efe12f3b", "604f9e9305951614efe12f3e"</td>
-            </tr>   
-            <tr>
-              <th scope="row">"604faf9222d53316d935bce1"</th>
-              <td>JulianM</td>
-              <td>fg65dFs</td>
-              <td>trublu@gmail.com</td>
-              <td>1997-09-03</td>
-              <td>"604f9ecc05951614efe12f42"</td>
-            </tr>                     
+    </table>
+    <!-- users table -->
+    <h2>Users Table:</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">userID</th>
+          <th scope="col">username</th>
+          <th scope="col">password</th>
+          <th scope="col">email</th>
+          <th scope="col">birthdate</th>
+          <th scope="col">Favoritemovies:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">"604faae722d53316d935bcdd"</th>
+          <td>JohnnyD</td>
+          <td>test123</td>
+          <td>JD@gmail.com</td>
+          <td>1988-09-10</td>
+          <td>"604f9e2305951614efe12f39", "604d54350b9cec5678c342b8"</td>
+        </tr>
+        <tr>
+          <th scope="row">"604faebf22d53316d935bcde"</th>
+          <td>SteveO12</td>
+          <td>bum324</td>
+          <td>SD@gmail.com</td>
+          <td>1986-04-02</td>
+          <td>"604f9e7405951614efe12f3d","604f9e6505951614efe12f3c"</td>
+        </tr>
+        <tr>
+          <th scope="row">"604faefa22d53316d935bcdf"</th>
+          <td>JaneAmp2</td>
+          <td>fd98df</td>
+          <td>JA@gmail.com</td>
+          <td>2000-11-18</td>
+          <td>"604f9e9305951614efe12f3e"</td>
+        </tr>
+        <tr>
+          <th scope="row">"604faf4622d53316d935bce0"</th>
+          <td>Max11</td>
+          <td>fghhb5</td>
+          <td>mucher@hotmail.com</td>
+          <td>2006-07-27</td>
+          <td>"604f9e5805951614efe12f3b", "604f9e9305951614efe12f3e"</td>
+        </tr>
+        <tr>
+          <th scope="row">"604faf9222d53316d935bce1"</th>
+          <td>JulianM</td>
+          <td>fg65dFs</td>
+          <td>trublu@gmail.com</td>
+          <td>1997-09-03</td>
+          <td>"604f9ecc05951614efe12f42"</td>
+        </tr>
       </tbody>
     </table>
 
-
-
-
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
