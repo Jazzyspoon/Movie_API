@@ -9,7 +9,7 @@ require("./passport");
 
 const cors = require("cors");
 let allowedOrigins = [
-  "http://localhost",
+  "http://localhost:8080",
   "https://movieflixappjp.herokuapp.com/",
 ];
 
@@ -41,6 +41,7 @@ let auth = require("./auth")(app);
 const Movies = Models.Movie;
 const Users = Models.User;
 
+//require express validator
 const { check, validationResult } = require("express-validator");
 
 // use for home use "mongodb://localhost:27017/movieFlixDB",
