@@ -10,6 +10,10 @@
   "description": "Exercise Objective: To build the server-side component of a “movies” web\r       application. This will provide users with access to information about\r       different movies, directors, and genres. Users will be able to sign\r       up, update their personal information, and create a list of their favorite\r       movies.",
   "version": "1.0.0",
   "main": "index.js",
+  "engines": {
+    "node": "15.12.0",
+    "npm":  "7.6.3",}
+  },
   "dependencies": {
     "acorn-jsx": "^5.3.1",
     "ajv": "^6.12.6",

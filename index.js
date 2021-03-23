@@ -12,8 +12,7 @@ let allowedOrigins = [
   "https://movieflixappjp.herokuapp.com/",
 ];
 
-//summon express static on public
-app.use(express.static("public"));
+
 
 const app = express();
 app.use(express.json());
@@ -36,6 +35,8 @@ app.use(cors({origin: (origin, callback) => {
 );
 
 
+//summon express static on public
+app.use(express.static("public"));
 
 //calling on the models.js schemas
 const Movies = Models.Movie;
