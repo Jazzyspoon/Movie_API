@@ -200,40 +200,49 @@ app.get(
 );
 
 // Update a user's info, by username*
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
-    [
-        check('Username', 'Username is required').isLength({ min: 5 }),
-        check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
-        check('Password', 'Password is required').not().isEmpty(),
-        check('Email', 'Email does not appear to be valid').isEmail()
-    ], (req, res) => {
-        let errors = validationResult(req); //checks the validation object for errors
+app.put(
+  "/users/:Username",
+  passport.authenticate("jwt", { session: false }),
+  [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check(
+      "Username",
+      "Username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail(),
+  ],
+  (req, res) => {
+    let errors = validationResult(req); //checks the validation object for errors
 
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-        }
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
 
-        let hashedPassword = Users.hashPassword(req.body.Password);
+    let hashedPassword = Users.hashPassword(req.body.Password);
 
-        Users.findOneAndUpdate({ Username: req.params.Username }, {
-            $set:
-            {
-                Username: req.body.Username,
-                Password: req.body.Password,
-                Email: req.body.Email,
-                Birthday: req.body.Birthday
-            }
+    Users.findOneAndUpdate(
+      { Username: req.params.Username },
+      {
+        $set: {
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday,
         },
-            { new: true },
-            (err, updatedUser) => {
-                if (err) {
-                    console.error(err);
-                    res.status(500).send('Error: ' + err);
-                } else {
-                    res.status(201).json(updatedUser);
-                }
-            });
-    });
+      },
+      { new: true },
+      (err, updatedUser) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Error: " + err);
+        } else {
+          res.status(201).json(updatedUser);
+        }
+      }
+    );
+  }
+);
 
 // Add a movie to a user's list of favorites
 app.post(
