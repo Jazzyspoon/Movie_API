@@ -50,7 +50,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-//load a generic message
+//load a generic message on the home page
 app.get("/", (req, res) => {
   res.send("Welcome to the MovieFlix App");
 });
