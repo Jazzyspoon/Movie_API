@@ -6,10 +6,9 @@ const uuid = require("uuid");
 const morgan = require("morgan");
 const passport = require("passport");
 require("./passport");
-
 const cors = require("cors");
 let allowedOrigins = [
-  "http://localhost:8080",
+  "http://localhost:",
   "https://movieflixappjp.herokuapp.com/",
 ];
 
@@ -315,7 +314,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-// log listening on 8080 and port 0.0.0.0
+// log listening on 8080 and open port 0.0.0.0
 const port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
