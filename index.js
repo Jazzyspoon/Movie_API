@@ -12,15 +12,15 @@ let allowedOrigins = [
   "https://movieflixappjp.herokuapp.com/",
 ];
 
-
-
 const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 let auth = require("./auth")(app);
 
 //cors security
-app.use(cors({origin: (origin, callback) => {
+app.use(
+  cors({
+    origin: (origin, callback) => {
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
         // If a specific origin isn’t found on the list of allowed origins
@@ -33,7 +33,6 @@ app.use(cors({origin: (origin, callback) => {
     },
   })
 );
-
 
 //summon express static on public
 app.use(express.static("public"));
@@ -201,46 +200,40 @@ app.get(
 );
 
 // Update a user's info, by username*
-app.put(
-  "/users/:username",
-  passport.authenticate("jwt", { session: false }),
-  [
-    check("username", "Username must be at least 5 characters").isLength({
-      min: 5,
-    }),
-    check(
-      "username",
-      "Username must contain only alphanumeric characters (A-Z, 0-9)."
-    ).isAlphanumeric(),
-    check("password", "Password is required").not().isEmpty(),
-    check("email", "Email is not valid").isEmail(),
-  ],
-  (req, res) => {
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    let hashedPassword = Users.hashPassword(req.body.password);
-    Users.findOneAndUpdate(
-      { username: req.params.username },
-      {
-        $set: {
-          username: req.body.username,
-          password: hashedPassword,
-          email: req.body.email,
-        },
-      },
-      { new: true },
-      (err, updatedUser) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send("Error: " + err);
-        } else {
-          res.json(updatedUser);
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+    [
+        check('Username', 'Username is required').isLength({ min: 5 }),
+        check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+        check('Password', 'Password is required').not().isEmpty(),
+        check('Email', 'Email does not appear to be valid').isEmail()
+    ], (req, res) => {
+        let errors = validationResult(req); //checks the validation object for errors
+
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
         }
-      }
-    );
-  }
-);
+
+        let hashedPassword = Users.hashPassword(req.body.Password);
+
+        Users.findOneAndUpdate({ Username: req.params.Username }, {
+            $set:
+            {
+                Username: req.body.Username,
+                Password: req.body.Password,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
+            }
+        },
+            { new: true },
+            (err, updatedUser) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Error: ' + err);
+                } else {
+                    res.status(201).json(updatedUser);
+                }
+            });
+    });
 
 // Add a movie to a user's list of favorites
 app.post(
@@ -252,7 +245,7 @@ app.post(
       {
         $push: { Favoritemovies: req.params.ID },
       },
-      { new: true }, // This line makes sure that the updated document is returned
+      { new: true }, // The updated document is returned
       (err, updatedUser) => {
         if (err) {
           console.error(err);
