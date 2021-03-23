@@ -8,7 +8,7 @@ const passport = require("passport");
 require("./passport");
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "http://127.0.0.0"];
+let allowedOrigins = ["http://localhost:8080", "https://movieflixappjp.herokuapp.com/"];
 
 app.use(
   cors({
@@ -26,10 +26,12 @@ app.use(
   })
 );
 
+//summon express static on public
+app.use(express.static("public"));
+
 const app = express();
-
 app.use(express.json());
-
+app.use(bodyParser.json());
 let auth = require("./auth")(app);
 
 const Movies = Models.Movie;
@@ -39,13 +41,10 @@ const { check, validationResult } = require("express-validator");
 
 // use for home use "mongodb://localhost:27017/movieFlixDB",
 //allows Mongoose to connect to that database so it can perform CRUD operations on the documents it contains from within your REST API.
-mongoose.connect(
-  process.env.CONNECTION_URI,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.CONNECTION_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //load a generic message
 app.get("/", (req, res) => {
@@ -119,11 +118,6 @@ app.get(
 //5.Allow new users to register*
 app.post(
   "/users",
-  // Validation logic here for request
-  //you can either use a chain of methods like .not().isEmpty()
-  //which means "opposite of isEmpty" in plain english "is not empty"
-  //or use .isLength({min: 5}) which means
-  //minimum value of 5 characters are only allowed
   [
     check("Username", "Username is required").isLength({ min: 5 }),
     check(
@@ -136,16 +130,14 @@ app.post(
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-
     let hashedPassword = Users.hashPassword(req.body.Password);
-    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+    Users.findOne({ Username: req.body.Username }) // See if a user with the requested username already exists
       .then((user) => {
         if (user) {
-          //If the user is found, send a response that it already exists
+          //If the user is found, send a response that it exists
           return res.status(400).send(req.body.Username + " already exists");
         } else {
           Users.create({
@@ -309,9 +301,6 @@ app.delete(
   }
 );
 
-//summon express static on public
-app.use(express.static("public"));
-
 //access documentation using express static
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
@@ -323,7 +312,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-// log listening on 8080
+// log listening on 8080 and port 0.0.0.0
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
