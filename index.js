@@ -8,7 +8,10 @@ const passport = require("passport");
 require("./passport");
 
 const cors = require("cors");
-let allowedOrigins = ["http://localhost:8080", "https://movieflixappjp.herokuapp.com/"];
+let allowedOrigins = [
+  "http://localhost:8080",
+  "https://movieflixappjp.herokuapp.com/",
+];
 
 app.use(
   cors({
@@ -197,6 +200,7 @@ app.get(
 // Update a user's info, by username*
 app.put(
   "/users/:username",
+  passport.authenticate("jwt", { session: false }),
   [
     check("username", "Username must be at least 5 characters").isLength({
       min: 5,
@@ -209,8 +213,6 @@ app.put(
     check("email", "Email is not valid").isEmail(),
   ],
   (req, res) => {
-    passport.authenticate("jwt", { session: false });
-    let errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
