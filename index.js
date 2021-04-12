@@ -8,9 +8,9 @@ const passport = require("passport");
 require("./passport");
 const cors = require("cors");
 let allowedOrigins = [
-  "http://localhost:8080/",
+  "http://localhost:1234/",
   "https://movieflixappjp.herokuapp.com/",
-  "http://localhost:",
+  "http://localhost:8080/",
 ];
 
 const app = express();
