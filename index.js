@@ -10,7 +10,7 @@ const cors = require("cors");
 let allowedOrigins = [
   "http://localhost:8080/",
   "https://movieflixappjp.herokuapp.com/",
-  "http://localhost",
+  "http://localhost:",
 ];
 
 const app = express();
