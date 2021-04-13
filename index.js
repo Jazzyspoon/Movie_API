@@ -20,17 +20,17 @@ app.use(bodyParser.json());
 //cors security
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        // If a specific origin isn’t found on the list of allowed origins
-        let message =
-          "The CORS policy for this application doesn’t allow access from origin " +
-          origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    },
+    // origin: (origin, callback) => {
+    //   if (!origin) return callback(null, true);
+    //   if (allowedOrigins.indexOf(origin) === -1) {
+    //     // If a specific origin isn’t found on the list of allowed origins
+    //     let message =
+    //       "The CORS policy for this application doesn’t allow access from origin " +
+    //       origin;
+    //     return callback(new Error(message), false);
+    //   }
+    //   return callback(null, true);
+    // },
   })
 );
 
@@ -77,7 +77,7 @@ app.get(
 //2. get a single movie's full details
 app.get(
   "/movies/:Title",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   (req, res) => {
     Movies.findOne({ Title: req.params.Title })
       .then((movie) => {
