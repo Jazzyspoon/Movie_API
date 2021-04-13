@@ -16,7 +16,6 @@ let allowedOrigins = [
 const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
-let auth = require("./auth")(app);
 
 //cors security
 app.use(
@@ -34,6 +33,8 @@ app.use(
     },
   })
 );
+
+let auth = require("./auth")(app);
 
 //summon express static on public
 app.use(express.static("public"));
