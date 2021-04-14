@@ -10,7 +10,7 @@ const cors = require("cors");
 let allowedOrigins = [
   "http://localhost:1234",
   "https://movieflixappjp.herokuapp.com/",
-  "http://localhost:8080/",
+  "http://localhost:8080",
 ];
 
 const app = express();
@@ -61,7 +61,7 @@ app.get("/", (req, res) => {
 // 1.get all movies
 app.get(
   "/movies",
-  // passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt", { session: false }),
   function (req, res) {
     Movies.find()
       .then(function (movies) {
