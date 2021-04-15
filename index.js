@@ -9,7 +9,7 @@ require("./passport");
 const cors = require("cors");
 let allowedOrigins = [
   "http://localhost:1234",
-  "https://movieflixappjp.herokuapp.com",
+  "https://movieflixappjp.herokuapp.com/",
   "http://localhost:8080",
 ];
 
