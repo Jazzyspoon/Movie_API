@@ -11,6 +11,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "https://movieflixappjp.herokuapp.com/",
   "http://localhost:8080",
+  "https://movieflixjp.netlify.app",
 ];
 
 const app = express();
