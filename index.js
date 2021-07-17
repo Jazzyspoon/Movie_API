@@ -8,7 +8,7 @@ const passport = require("passport");
 require("./passport");
 const cors = require("cors");
 let allowedOrigins = [
-  "http://localhost",
+  "http://localhost:4200",
   "https://movieflixappjp.herokuapp.com/",
   "http://localhost:8080",
   "https://movieflixjp.netlify.app",
