@@ -12,6 +12,7 @@ let allowedOrigins = [
   "https://movieflixappjp.herokuapp.com/",
   "http://localhost:8080",
   "https://movieflixjp.netlify.app",
+  "https://jazzyspoon.github.io",
 ];
 
 const app = express();
