@@ -7,3 +7,15 @@ up, update their personal information, and create a list of their favorite
 movies.
 
 This API is hosted on heroku.
+https://movieflixappjp.herokuapp.com/
+
+It is currently being used for both my MyFlix (React and Angular) files
+found here on Github:
+https://github.com/Jazzyspoon/myFlix-Angular-client
+and
+https://github.com/Jazzyspoon/myFlix-client
+
+For further information, contact me at Github.
+
+-Jason "Jazzyspoon Pottorff
+https://jasonpottorffportfolio.com/
