@@ -6,6 +6,7 @@ const uuid = require("uuid");
 const morgan = require("morgan");
 const passport = require("passport");
 require("./passport");
+/** CORS security */
 const cors = require("cors");
 /**allowed origins */
 let allowedOrigins = [
@@ -20,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 
-/**cors security*/
+/** CORS security */
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -60,13 +61,13 @@ mongoose.connect(process.env.CONNECTION_URI, {
   useUnifiedTopology: true,
 });
 
-/**load a generic message on the home page */
+/**load a generic @message on the home page */
 app.get("/", (req, res) => {
   res.send("Welcome to the MovieFlix App");
 });
 
 /**  1.get all
- * @param {movies}
+ * @param Movies
  */
 app.get(
   "/movies",
@@ -100,7 +101,7 @@ app.get(
 );
 
 /**3. Return data about a
- * @genre
+ * @category genres
  * (description) by movie title
  *  */
 app.get(
@@ -119,7 +120,7 @@ app.get(
 );
 
 /** Return data about a
- *  @director
+ *  @category directors
  * (bio, birth year, death year) by name
  *  */
 app.get(
@@ -137,7 +138,10 @@ app.get(
   }
 );
 
-/**5.Allow new @users to register*/
+/**5.Allow new
+ * @category USERS
+ * to register
+ * */
 app.post(
   "/users",
   [
@@ -150,7 +154,9 @@ app.post(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    /** check the validation object for errors */
+    /** check the
+     * @params {Validation}
+     * object for errors */
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -185,8 +191,7 @@ app.post(
 );
 
 /**  get all
- * @users
- * @param {users}
+ *  @category USERS
  */
 app.get(
   "/users",
@@ -264,7 +269,10 @@ app.put(
   }
 );
 
-/**  Add a movie to a user's list of @favorites*/
+/**  Add a movie to a
+ *  @category USERS
+ *  list of favorites
+ * */
 app.post(
   "/users/:Username/:Favoritemovies/:ID",
   passport.authenticate("jwt", { session: false }),
@@ -309,7 +317,10 @@ app.delete(
   }
 );
 
-/**  allow a @user to deregister by username */
+/**  allow a
+ * @category USERS
+ *  to deregister by username
+ *  */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
