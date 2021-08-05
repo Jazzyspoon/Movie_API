@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const passport = require("passport");
 require("./passport");
 const cors = require("cors");
+/**allowed origins */
 let allowedOrigins = [
   "http://localhost:4200",
   "https://movieflixappjp.herokuapp.com/",
