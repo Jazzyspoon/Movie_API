@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "jsdoc": "jsdoc --exclude **/*.spec.ts --out docs/jsdoc src/app"
   },
   "name": "my-first-package",
   "description": "Exercise Objective: To build the server-side component of a “movies” web\r       application. This will provide users with access to information about\r       different movies, directors, and genres. Users will be able to sign\r       up, update their personal information, and create a list of their favorite\r       movies.",
