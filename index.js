@@ -62,7 +62,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to the MovieFlix App");
 });
 
-/**  1.get all movies */
+/**  1.get all
+ * @param {movies} */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -174,7 +175,9 @@ app.post(
   }
 );
 
-/**  get all users */
+/**  get all users
+ * @param {users}
+ */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
