@@ -44,13 +44,16 @@ app.use(express.static("public"));
 
 /**calling on the models.js schemas*/
 const Movies = Models.Movie;
+/** Users */
 const Users = Models.User;
 
-/**require express validator*/
+/** Validation*/
 const { check, validationResult } = require("express-validator");
 
 /** use for home use "mongodb://localhost:27017/movieFlixDB",*/
-/**allows Mongoose to connect to that database so it can perform CRUD
+/**allows
+ * @Mongoose
+ *  to connect to that database so it can perform CRUD
  * operations on the documents it contains from within your REST API.*/
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
@@ -63,7 +66,8 @@ app.get("/", (req, res) => {
 });
 
 /**  1.get all
- * @param {movies} */
+ * @param {movies}
+ */
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -95,7 +99,10 @@ app.get(
   }
 );
 
-/**3. Return data about a genre (description) by movie title */
+/**3. Return data about a
+ * @genre
+ * (description) by movie title
+ *  */
 app.get(
   "/movies/genres/:Title",
   passport.authenticate("jwt", { session: false }),
@@ -111,8 +118,10 @@ app.get(
   }
 );
 
-/**4. Return data about a director
- * (bio, birth year, death year) by name */
+/** Return data about a
+ *  @director
+ * (bio, birth year, death year) by name
+ *  */
 app.get(
   "/movies/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -128,7 +137,7 @@ app.get(
   }
 );
 
-/**5.Allow new users to register*/
+/**5.Allow new @users to register*/
 app.post(
   "/users",
   [
@@ -150,7 +159,7 @@ app.post(
     Users.findOne({ Username: req.body.Username }) // See if a user with the requested username already exists
       .then((user) => {
         if (user) {
-          /**If the user is found, send a response that it exists */
+          /**If the @user is found, send a response that it exists */
           return res.status(400).send(req.body.Username + " already exists");
         } else {
           Users.create({
@@ -175,7 +184,8 @@ app.post(
   }
 );
 
-/**  get all users
+/**  get all
+ * @users
  * @param {users}
  */
 app.get(
@@ -193,7 +203,7 @@ app.get(
   }
 );
 
-/**  Get a user by username */
+/**  Get a @user by username */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -223,7 +233,7 @@ app.put(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    let errors = validationResult(req); //checks the validation object for errors
+    let errors = validationResult(req); //checks the @validation object for errors
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -254,7 +264,7 @@ app.put(
   }
 );
 
-/**  Add a movie to a user's list of favorites*/
+/**  Add a movie to a user's list of @favorites*/
 app.post(
   "/users/:Username/:Favoritemovies/:ID",
   passport.authenticate("jwt", { session: false }),
@@ -277,7 +287,7 @@ app.post(
   }
 );
 
-/**8. Allow users to remove a movie
+/**8. Allow users to remove a @movie
  * from their list of favorites */
 app.delete(
   "/users/:Username/:Favoritemovies/:ID",
@@ -299,7 +309,7 @@ app.delete(
   }
 );
 
-/**  allow a user to deregister by username */
+/**  allow a @user to deregister by username */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
