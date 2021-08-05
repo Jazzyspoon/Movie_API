@@ -6,8 +6,10 @@ const uuid = require("uuid");
 const morgan = require("morgan");
 const passport = require("passport");
 require("./passport");
+
 /** CORS security */
 const cors = require("cors");
+
 /**allowed origins */
 let allowedOrigins = [
   "http://localhost:4200",
@@ -45,6 +47,7 @@ app.use(express.static("public"));
 
 /**calling on the models.js schemas*/
 const Movies = Models.Movie;
+
 /** Users */
 const Users = Models.User;
 
@@ -52,16 +55,14 @@ const Users = Models.User;
 const { check, validationResult } = require("express-validator");
 
 /** use for home use "mongodb://localhost:27017/movieFlixDB",*/
-/**allows
- * @Mongoose
- *  to connect to that database so it can perform CRUD
+/**allows mongoose to connect to that database so it can perform CRUD
  * operations on the documents it contains from within your REST API.*/
 mongoose.connect(process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-/**load a generic @message on the home page */
+/**load a generic message on the home page */
 app.get("/", (req, res) => {
   res.send("Welcome to the MovieFlix App");
 });
@@ -100,8 +101,7 @@ app.get(
   }
 );
 
-/**3. Return data about a
- * @category genres
+/** Return data about a genre's
  * (description) by movie title
  *  */
 app.get(
@@ -119,10 +119,9 @@ app.get(
   }
 );
 
-/** Return data about a
- *  @category directors
+/** Return data about a directors
  * (bio, birth year, death year) by name
- *  */
+ */
 app.get(
   "/movies/directors/:Name",
   passport.authenticate("jwt", { session: false }),
@@ -154,9 +153,7 @@ app.post(
     check("Email", "Email does not appear to be valid").isEmail(),
   ],
   (req, res) => {
-    /** check the
-     * @params {Validation}
-     * object for errors */
+    /** check the Validation object for errors */
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -190,9 +187,7 @@ app.post(
   }
 );
 
-/**  get all
- *  @category USERS
- */
+/**  get all USERS */
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -208,7 +203,7 @@ app.get(
   }
 );
 
-/**  Get a @user by username */
+/**  Get a user by username */
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -269,10 +264,7 @@ app.put(
   }
 );
 
-/**  Add a movie to a
- *  @category USERS
- *  list of favorites
- * */
+/**  Add a movie to a USER'S list of favorites */
 app.post(
   "/users/:Username/:Favoritemovies/:ID",
   passport.authenticate("jwt", { session: false }),
@@ -317,10 +309,7 @@ app.delete(
   }
 );
 
-/**  allow a
- * @category USERS
- *  to deregister by username
- *  */
+/**  allow a USER to deregister by username */
 app.delete(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -340,12 +329,12 @@ app.delete(
   }
 );
 
-/**access documentation using express static*/
+/** access documentation using express static */
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
 });
 
-/**error handling*/
+/** error handling */
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
