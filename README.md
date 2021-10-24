@@ -5,7 +5,7 @@ application. This will provide users with access to information about
 different movies, directors, and genres. Users will be able to sign
 up, update their personal information, and create a list of their favorite
 movies.
-<img src=""></img>
+<img src="https://github.com/Jazzyspoon/Movie_API/blob/main/movieAPI.png"></img>
 This API is hosted on heroku.
 https://movieflixappjp.herokuapp.com/
 
