@@ -25,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "markdown-it": "^12.3.2",
     "marked": "^4.0.10",
+    "moment": "^2.29.2",
     "mongoose": "^5.13.8",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
